@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const AppLayout = styled.nav``;
+export const AppLayout = styled.div`
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+`;
 
 export const Navbar = styled.nav`
     display: flex;
@@ -28,18 +32,35 @@ export const NavLink = styled(Link)`
     font-weight: 500;
 `;
 
+export const SearchContainer = styled.div`
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
+`;
+
 export const SearchInput = styled.input`
     padding: 0.5rem 1rem;
     border: none;
+    outline: none;
     border-radius: 0.25rem;
-    margin-left: 1.5rem;
+    background-color: #333;
+    color: #fff;
+    width: 180px;
+    margin-right: 8px;
 `;
+
 export const SearchIcon = styled.svg`
     width: 24px;
     height: 24px;
-    margin-left: 8px;
     cursor: pointer;
+
     path {
         stroke: white;
+        transition: stroke 0.3s ease-in-out;
+    }
+
+    &:hover path {
+        stroke: #dc1a28;
     }
 `;

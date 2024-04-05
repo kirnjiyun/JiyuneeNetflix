@@ -8,10 +8,12 @@ const AppLayout = () => {
     return (
         <S.AppLayout>
             <S.Navbar>
-                <S.Logo src={logo} alt="Netflix Logo" />
                 <S.NavLinks>
+                    <S.Logo src={logo} alt="Netflix Logo" />
                     <S.NavLink to="/">Home</S.NavLink>
                     <S.NavLink to="/movies">Movies</S.NavLink>
+                </S.NavLinks>
+                <S.SearchContainer>
                     <S.SearchInput type="text" placeholder="Search" />
                     <S.SearchIcon>
                         <path
@@ -27,7 +29,7 @@ const AppLayout = () => {
                             stroke-linejoin="round"
                         />
                     </S.SearchIcon>
-                </S.NavLinks>
+                </S.SearchContainer>
             </S.Navbar>
             <Outlet />
         </S.AppLayout>

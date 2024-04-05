@@ -11,6 +11,8 @@ const GlobalStyles = createGlobalStyle`
     font-family: Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
+    color: white;
+    background-color: black;
   }
 
   a {
