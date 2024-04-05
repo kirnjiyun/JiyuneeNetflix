@@ -34,9 +34,12 @@ export const SearchInput = styled.input`
     border-radius: 0.25rem;
     margin-left: 1.5rem;
 `;
-export const SearchIcon = styled.img`
-    width: 100%;
-    height: auto;
+export const SearchIcon = styled.svg`
+    width: 24px;
+    height: 24px;
     margin-left: 8px;
     cursor: pointer;
+    path {
+        stroke: white;
+    }
 `;
