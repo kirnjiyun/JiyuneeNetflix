@@ -13,11 +13,10 @@ const MovieCard = ({ movie }) => {
         >
             <S.MovieCard>
                 <S.Title>{movie.title}</S.Title>
-                <S.Genre>{movie.genre_ids.join(", ")}</S.Genre>
+                <S.Genre>{movie.genre_ids.slice(0, 2).join(", ")}</S.Genre>
                 <div>
-                    <div>{movie.vote_average}</div>
-                    <div>{movie.popularity}</div>
-                    <S.Adult>{movie.adult ? "18+" : null}</S.Adult>
+                    <S.Vote>★ {movie.vote_average.toFixed(1)}</S.Vote>
+                    {movie.adult ? <S.Adult>18+</S.Adult> : null}
                 </div>
             </S.MovieCard>
         </S.MovieCardContainer>
