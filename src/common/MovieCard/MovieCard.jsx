@@ -1,7 +1,21 @@
 import React from "react";
 import * as S from "./movieCard.styled";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 
 const MovieCard = ({ movie }) => {
+    const { data: genreData } = useMovieGenreQuery();
+
+    const showGenre = (genreIDList) => {
+        if (genreData) {
+            const genreNameList = genreIDList.map((id) => {
+                const genreObject = genreData.find((genre) => genre.id === id);
+                return genreObject ? genreObject.name : "";
+            });
+            return genreNameList.slice(0, 2).join(", ");
+        }
+        return "";
+    };
+
     return (
         <S.MovieCardContainer
             style={{
@@ -13,7 +27,7 @@ const MovieCard = ({ movie }) => {
         >
             <S.MovieCard>
                 <S.Title>{movie.title}</S.Title>
-                <S.Genre>{movie.genre_ids.slice(0, 2).join(", ")}</S.Genre>
+                <S.Genre>{showGenre(movie.genre_ids)}</S.Genre>
                 <div>
                     <S.Vote>★ {movie.vote_average.toFixed(1)}</S.Vote>
                     {movie.adult ? <S.Adult>18+</S.Adult> : null}
