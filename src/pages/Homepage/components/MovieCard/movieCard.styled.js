@@ -20,10 +20,6 @@ export const MovieCardContainer = styled.div`
         & > div {
             opacity: 1;
         }
-        &:hover {
-            transform: scale(1.5);
-            z-index: 2;
-        }
     }
 `;
 

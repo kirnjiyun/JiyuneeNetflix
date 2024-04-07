@@ -38,6 +38,7 @@ const PopularMovieSlide = () => {
                 centerMode={true}
                 containerClass="carousel-container"
                 responsive={responsive}
+                itemClass="carousel-item"
             >
                 {data.results.map((movie, i) => (
                     <MovieCard movie={movie} key={i} />
