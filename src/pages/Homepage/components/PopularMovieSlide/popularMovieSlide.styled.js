@@ -27,3 +27,6 @@ export const CarouselContainer = styled.div`
         z-index: 100;
     }
 `;
+export const Title = styled.h2`
+    padding: 15px;
+`;

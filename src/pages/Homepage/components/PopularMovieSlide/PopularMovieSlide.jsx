@@ -32,7 +32,7 @@ const PopularMovieSlide = () => {
     }
     return (
         <S.CarouselContainer>
-            <h3>Popular Movies</h3>
+            <S.Title>Popular Movies</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}
