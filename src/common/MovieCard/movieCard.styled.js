@@ -54,6 +54,8 @@ export const Genre = styled.p`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: #ffffff;
+    font-weight: bold;
 `;
 export const Vote = styled.p`
     font-size: 1rem;
