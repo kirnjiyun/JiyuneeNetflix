@@ -14,23 +14,30 @@ export const MovieCardContainer = styled.div`
     cursor: pointer;
 
     &:hover {
-        transform: scale(1.05);
+        transform: scale(1.5) translate(20px);
+        z-index: 2;
+
+        & > div {
+            opacity: 1;
+        }
     }
 `;
 
 export const MovieCard = styled.div`
     position: absolute;
-    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    padding-left: 10px;
+    top: 0;
     left: 0;
     width: 100%;
-    padding: 16px;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    transition: transform 0.3s;
-
-    ${MovieCardContainer}:hover & {
-        transform: translateY(-10px);
-    }
+    transition: opacity 0.3s ease, transform 0.3s;
+    opacity: 0;
 `;
 
 export const Title = styled.h2`
@@ -43,9 +50,20 @@ export const Title = styled.h2`
 `;
 
 export const Genre = styled.p`
-    font-size: 0.9rem;
-    opacity: 0.8;
+    font-size: 0.6rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+`;
+export const Vote = styled.p`
+    font-size: 1rem;
+`;
+export const Adult = styled.p`
+    background-color: #dc1a28;
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 0.6rem;
+    width: fit-content;
 `;

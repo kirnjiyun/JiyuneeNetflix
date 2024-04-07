@@ -3,6 +3,7 @@ import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
+import * as S from "./popularMovieSlide.styled";
 
 const responsive = {
     desktop: {
@@ -11,7 +12,7 @@ const responsive = {
     },
     tablet: {
         breakpoint: { max: 1024, min: 464 },
-        items: 2,
+        items: 4,
     },
     mobile: {
         breakpoint: { max: 464, min: 0 },
@@ -30,21 +31,20 @@ const PopularMovieSlide = () => {
         return <div>{error.message}</div>;
     }
     return (
-        <div>
-            <h3>Popular Movies</h3>
+        <S.CarouselContainer>
+            <S.Title>Popular Movies</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}
                 containerClass="carousel-container"
-                itemClass="movie-slider p-1"
                 responsive={responsive}
+                itemClass="carousel-item"
             >
                 {data.results.map((movie, i) => (
                     <MovieCard movie={movie} key={i} />
                 ))}
             </Carousel>
-            ;
-        </div>
+        </S.CarouselContainer>
     );
 };
 
