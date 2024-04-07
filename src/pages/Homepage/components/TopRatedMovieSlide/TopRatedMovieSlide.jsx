@@ -1,5 +1,5 @@
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
-import responsive from "../../../../constants/responsive";
+
 import { useTopRatedMoviesQuery } from "../../../../hooks/useTopRatedMovies";
 
 const TopRatedMovieSlide = ({ responsive }) => {
