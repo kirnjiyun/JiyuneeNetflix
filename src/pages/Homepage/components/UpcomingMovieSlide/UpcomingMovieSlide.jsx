@@ -1,7 +1,7 @@
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import responsive from "../../../../constants/responsive";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
-const UpcomingMovieSlide = () => {
+const UpcomingMovieSlide = ({ responsive }) => {
     const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
 
     if (isLoading) {
