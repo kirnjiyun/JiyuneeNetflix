@@ -1,9 +1,9 @@
 import React from "react";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams } from "react-router-dom";
-// import { Container, Row, Col } from "react-bootstrap";
-import { MovieCard } from "../../common/MovieCard/movieCard.styled";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import MovieCard from "../../common/MovieCard/MovieCard";
+import * as S from "./moviespage.styled";
+
 const Moviespage = () => {
     const [query] = useSearchParams();
     const keyword = query.get("q");
@@ -18,25 +18,47 @@ const Moviespage = () => {
     if (isError) {
         return <div>{error.message}</div>;
     }
-    console.log(data);
+
+    console.log(data.results);
+
     return (
-        <div>안녕</div>
-        // <Container>
-        //     <Row>
-        //         <Col lg={4} xs={12}>
-        //             필터
-        //         </Col>
-        //         <Col lg={8} xs={12}>
-        //             <Row>
-        //                 {data?.results?.map((movie, i) => (
-        //                     <Col key={i} lg={3} xs={12} className="mb-4">
-        //                         <MovieCard movie={movie} />
-        //                     </Col>
-        //                 ))}
-        //             </Row>
-        //         </Col>
-        //     </Row>
-        // </Container>
+        <S.MoviespageContainer>
+            <S.FilterContainer>
+                <form action="#">
+                    <label for="lang">Language</label>
+                    <select name="languages" id="lang">
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP</option>
+                        <option value="java">Java</option>
+                        <option value="golang">Golang</option>
+                        <option value="python">Python</option>
+                        <option value="c#">C#</option>
+                        <option value="C++">C++</option>
+                        <option value="erlang">Erlang</option>
+                    </select>
+                    <input type="submit" value="Submit" />
+                </form>
+                <form action="#">
+                    <label for="lang">Language</label>
+                    <select name="languages" id="lang">
+                        <option value="javascript">JavaScript</option>
+                        <option value="php">PHP</option>
+                        <option value="java">Java</option>
+                        <option value="golang">Golang</option>
+                        <option value="python">Python</option>
+                        <option value="c#">C#</option>
+                        <option value="C++">C++</option>
+                        <option value="erlang">Erlang</option>
+                    </select>
+                    <input type="submit" value="Submit" />
+                </form>
+            </S.FilterContainer>
+            <S.MoviesContainer>
+                {data?.results?.map((movie) => (
+                    <MovieCard key={movie.id} movie={movie} />
+                ))}
+            </S.MoviesContainer>
+        </S.MoviespageContainer>
     );
 };
 
