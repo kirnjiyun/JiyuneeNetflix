@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as S from "./appLayout.styled";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/images/logo.png";
