@@ -50,7 +50,7 @@ export const NavLink = styled(Link)`
     }
 `;
 
-export const SearchContainer = styled.div`
+export const SearchContainer = styled.form`
     position: relative;
     display: flex;
     height: 30px;
@@ -63,7 +63,6 @@ export const SearchContainer = styled.div`
         margin-top: 1rem;
     }
 `;
-
 export const SearchInput = styled.input`
     border: none;
     outline: none;
@@ -81,17 +80,26 @@ export const SearchInput = styled.input`
     }
 `;
 
-export const SearchIcon = styled.svg`
-    width: 24px;
-    height: 24px;
+export const SearchIcon = styled.button`
+    background: none;
+    border: none;
     cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    path {
-        stroke: white;
-        transition: stroke 0.3s ease-in-out;
+    svg {
+        width: 24px;
+        height: 24px;
+
+        path {
+            stroke: ${({ hasInput }) => (hasInput ? "#dc1a28" : "white")};
+            transition: stroke 0.3s ease-in-out;
+        }
     }
 
-    &:hover path {
+    &:hover svg path {
         stroke: #dc1a28;
     }
 `;
