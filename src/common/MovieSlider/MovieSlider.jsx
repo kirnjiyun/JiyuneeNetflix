@@ -2,7 +2,8 @@ import * as S from "./movieSlider.styled";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
-const MovieSlider = ({ title, movies, responsive }) => {
+
+const MovieSlider = ({ title, movies, responsive, onClick }) => {
     return (
         <S.CarouselContainer>
             <S.Title>{title}</S.Title>
@@ -17,7 +18,7 @@ const MovieSlider = ({ title, movies, responsive }) => {
                 transitionDuration={4000}
             >
                 {movies.map((movie, i) => (
-                    <MovieCard movie={movie} key={i} />
+                    <MovieCard onClick={onClick} movie={movie} key={i} />
                 ))}
             </Carousel>
         </S.CarouselContainer>

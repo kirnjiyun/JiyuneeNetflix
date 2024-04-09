@@ -5,13 +5,21 @@ import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide"
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
 import responsive from "../../constants/responsive";
+import { useNavigate } from "react-router-dom";
+
 const Homepage = () => {
+    const navigate = useNavigate();
+
+    const handleClick = (movie) => {
+        navigate(`/movies/${movie.id}`);
+    };
+
     return (
         <S.HomepageContainer>
             <Banner />
-            <PopularMovieSlide responsive={responsive} />
-            <TopRatedMovieSlide responsive={responsive} />
-            <UpcomingMovieSlide responsive={responsive} />
+            <PopularMovieSlide responsive={responsive} onClick={handleClick} />
+            <TopRatedMovieSlide responsive={responsive} onClick={handleClick} />
+            <UpcomingMovieSlide responsive={responsive} onClick={handleClick} />
         </S.HomepageContainer>
     );
 };

@@ -2,7 +2,7 @@ import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 
 import { useTopRatedMoviesQuery } from "../../../../hooks/useTopRatedMovies";
 
-const TopRatedMovieSlide = ({ responsive }) => {
+const TopRatedMovieSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = useTopRatedMoviesQuery();
 
     if (isLoading) {
@@ -19,6 +19,7 @@ const TopRatedMovieSlide = ({ responsive }) => {
                 title="Top Rated Movies"
                 movies={data.results}
                 responsive={responsive}
+                onClick={onClick}
             />
         </div>
     );

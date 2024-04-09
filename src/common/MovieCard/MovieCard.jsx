@@ -2,8 +2,9 @@ import React from "react";
 import * as S from "./movieCard.styled";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, onClick }) => {
     const { data: genreData } = useMovieGenreQuery();
+
     const showGenre = (genreIDList) => {
         if (genreData) {
             const genreNameList = genreIDList.map((id) => {
@@ -15,6 +16,10 @@ const MovieCard = ({ movie }) => {
         return "";
     };
 
+    const handleClick = () => {
+        onClick(movie);
+    };
+
     return (
         <S.MovieCardContainer
             style={{
@@ -23,6 +28,7 @@ const MovieCard = ({ movie }) => {
                     `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}` +
                     ")",
             }}
+            onClick={handleClick}
         >
             <S.MovieCard>
                 <S.Title>{movie.title}</S.Title>

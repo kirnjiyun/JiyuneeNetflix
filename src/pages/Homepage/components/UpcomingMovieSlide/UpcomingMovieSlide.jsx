@@ -1,6 +1,6 @@
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { useUpcomingMoviesQuery } from "../../../../hooks/useUpcomingMovies";
-const UpcomingMovieSlide = ({ responsive }) => {
+const UpcomingMovieSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = useUpcomingMoviesQuery();
 
     if (isLoading) {
@@ -17,6 +17,7 @@ const UpcomingMovieSlide = ({ responsive }) => {
                 title="Upcoming Movies"
                 movies={data.results}
                 responsive={responsive}
+                onClick={onClick}
             />
         </div>
     );
