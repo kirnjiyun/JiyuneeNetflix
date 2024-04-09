@@ -36,13 +36,19 @@ export const MovieContent = styled.div`
 
 export const PosterContainer = styled.div`
     margin-bottom: 2rem;
-
+    height: 750px;
+    width: 500px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
     @media (min-width: 768px) {
         margin-right: 4rem;
         margin-bottom: 0;
     }
 `;
-export const Poster = styled.img``;
 export const MovieDetails = styled.div`
     display: flex;
     flex-direction: column;
@@ -107,6 +113,8 @@ export const CreditItem = styled.li`
 export const ReleaseDate = styled.p`
     margin-bottom: 1rem;
 `;
+export const Runtime = styled(ReleaseDate)``;
+export const Vote = styled(ReleaseDate)``;
 
 export const ReviewContainer = styled.div`
     width: 100%;

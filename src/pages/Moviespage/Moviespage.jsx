@@ -29,7 +29,6 @@ const Moviespage = () => {
     if (isError) {
         return <div>{error.message}</div>;
     }
-
     return (
         <S.Container>
             <S.MoviespageContainer>

@@ -6,8 +6,8 @@ import { useParams } from "react-router-dom";
 import reviews from "../../constants/reviews";
 const MovieDetailPage = () => {
     const [expandedReview, setExpandedReview] = useState(null);
-    const { movieId } = useParams();
-    const { data, isLoading, isError } = useMovieDetailQuery(movieId);
+    const { id } = useParams();
+    const { data, isLoading, isError } = useMovieDetailQuery(id);
     const ReviewClick = (i) => {
         if (expandedReview === i) {
             setExpandedReview(null);
@@ -15,8 +15,6 @@ const MovieDetailPage = () => {
             setExpandedReview(i);
         }
     };
-    console.log("아이디", movieId);
-    console.log(data);
 
     if (isLoading) {
         return <div>Loading...</div>;
@@ -28,12 +26,15 @@ const MovieDetailPage = () => {
     return (
         <S.MovieDetailContainer>
             <S.MovieContent>
-                <S.PosterContainer>
-                    <S.Poster
-                        src="http://joyposter.cafe24.com/MoF/step/FDR427/FDR-040.jpg"
-                        alt="Movie Poster"
-                    />
-                </S.PosterContainer>
+                <S.PosterContainer
+                    style={{
+                        backgroundImage:
+                            "url(" +
+                            `https://www.themoviedb.org/t/p/w500${data.poster_path}` +
+                            ")",
+                    }}
+                />
+
                 <S.MovieDetails>
                     <S.Title>{data?.title}</S.Title>
                     <S.GenreList>
@@ -43,15 +44,17 @@ const MovieDetailPage = () => {
                     </S.GenreList>
                     <S.Synopsis>{data?.overview}</S.Synopsis>
                     <S.Credits>
-                        {data?.credits.cast.slice(0, 3).map((cast) => (
+                        {/* {data?.credits.cast.slice(0, 3).map((cast) => (
                             <S.CreditItem key={cast.id}>
                                 {cast.name}
                             </S.CreditItem>
-                        ))}
+                        ))} */}
                     </S.Credits>
                     <S.ReleaseDate>
-                        Release Date: {data?.release_date}
+                        Release Date : {data?.release_date}
                     </S.ReleaseDate>
+                    <S.Runtime>RunTime : {data?.runtime} minutes</S.Runtime>
+                    <S.Vote>★ {data?.vote_average.toFixed(1)}</S.Vote>
                 </S.MovieDetails>
             </S.MovieContent>
             <S.ReviewContainer>
