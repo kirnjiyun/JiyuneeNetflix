@@ -1,7 +1,7 @@
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 
-const PopularMovieSlide = ({ responsive }) => {
+const PopularMovieSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
     if (isLoading) {
@@ -18,6 +18,7 @@ const PopularMovieSlide = ({ responsive }) => {
                 title="Popular Movies"
                 movies={data.results}
                 responsive={responsive}
+                onClick={onClick}
             />
         </div>
     );

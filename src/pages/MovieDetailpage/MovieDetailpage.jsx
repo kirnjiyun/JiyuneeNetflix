@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import * as S from "./moviedetailpage.styled";
+import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
+import { useParams } from "react-router-dom";
 
+import reviews from "../../constants/reviews";
 const MovieDetailPage = () => {
     const [expandedReview, setExpandedReview] = useState(null);
-
+    const { movieId } = useParams();
+    const { data, isLoading, isError } = useMovieDetailQuery(movieId);
     const ReviewClick = (i) => {
         if (expandedReview === i) {
             setExpandedReview(null);
@@ -11,13 +15,16 @@ const MovieDetailPage = () => {
             setExpandedReview(i);
         }
     };
-    const reviews = [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros,Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit. ",
-        " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit.",
-        "Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit.",
-        "Eget tincidunt nisl nunc eget velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros, eget tincidunt nisl nunc eget velit. Sed euismod, nisi vel bibendum consectetur, nisl nisi aliquam eros.",
-    ];
+    console.log("아이디", movieId);
+    console.log(data);
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (isError) {
+        return <div>Error occurred while fetching movie details.</div>;
+    }
     return (
         <S.MovieDetailContainer>
             <S.MovieContent>
@@ -28,23 +35,23 @@ const MovieDetailPage = () => {
                     />
                 </S.PosterContainer>
                 <S.MovieDetails>
-                    <S.Title>Movie Title</S.Title>
+                    <S.Title>{data?.title}</S.Title>
                     <S.GenreList>
-                        <S.Genre>Genre 1</S.Genre>
-                        <S.Genre>Genre 2</S.Genre>
+                        {data?.genres.map((genre) => (
+                            <S.Genre key={genre.id}>{genre.name}</S.Genre>
+                        ))}
                     </S.GenreList>
-                    <S.Synopsis>
-                        Movie synopsis goes here. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit. Sed auctor, magna a
-                        bibendum bibendum, augue magna tincidunt enim, eget
-                        ultricies magna augue eget lorem.
-                    </S.Synopsis>
+                    <S.Synopsis>{data?.overview}</S.Synopsis>
                     <S.Credits>
-                        <S.CreditItem>Actor 1</S.CreditItem>
-                        <S.CreditItem>Actor 2</S.CreditItem>
-                        <S.CreditItem>Actor 3</S.CreditItem>
+                        {data?.credits.cast.slice(0, 3).map((cast) => (
+                            <S.CreditItem key={cast.id}>
+                                {cast.name}
+                            </S.CreditItem>
+                        ))}
                     </S.Credits>
-                    <S.ReleaseDate>Release Date: YYYY-MM-DD</S.ReleaseDate>
+                    <S.ReleaseDate>
+                        Release Date: {data?.release_date}
+                    </S.ReleaseDate>
                 </S.MovieDetails>
             </S.MovieContent>
             <S.ReviewContainer>

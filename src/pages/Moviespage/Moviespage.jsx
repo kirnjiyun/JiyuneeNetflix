@@ -4,14 +4,18 @@ import { useSearchParams } from "react-router-dom";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import * as S from "./moviespage.styled";
 import ReactPaginate from "react-paginate";
-
+import { useNavigate } from "react-router-dom";
+import FilterandSort from "./components/FilterandSort";
 const Moviespage = () => {
     const [query] = useSearchParams();
     const keyword = query.get("q");
-
+    const navigate = useNavigate();
     const [page, setPage] = useState(1);
-    const handlePageClick = ({ selected }) => {
+    const ClickPage = ({ selected }) => {
         setPage(selected + 1);
+    };
+    const ClickCard = (movie) => {
+        navigate(`/movies/${movie.id}`);
     };
     const { data, isLoading, isError, error } = useSearchMovieQuery({
         keyword,
@@ -26,52 +30,19 @@ const Moviespage = () => {
         return <div>{error.message}</div>;
     }
 
-    console.log(data.results);
-
     return (
         <S.Container>
             <S.MoviespageContainer>
                 <S.FilterContainer>
-                    <form action="#">
-                        <label for="lang">Sort</label>
-                        <select name="languages" id="lang">
-                            \
-                        </select>
-                        <input type="submit" value="Submit" />
-                    </form>
-                    <form action="#">
-                        {" "}
-                        <label for="genre">Filter</label>{" "}
-                        <select name="genres" id="genre">
-                            {" "}
-                            <option value="action">Action</option>{" "}
-                            <option value="adventure">Adventure</option>{" "}
-                            <option value="animation">Animation</option>{" "}
-                            <option value="comedy">Comedy</option>{" "}
-                            <option value="crime">Crime</option>{" "}
-                            <option value="documentary">Documentary</option>{" "}
-                            <option value="drama">Drama</option>{" "}
-                            <option value="family">Family</option>{" "}
-                            <option value="fantasy">Fantasy</option>{" "}
-                            <option value="history">History</option>{" "}
-                            <option value="horror">Horror</option>{" "}
-                            <option value="music">Music</option>{" "}
-                            <option value="mystery">Mystery</option>{" "}
-                            <option value="romance">Romance</option>{" "}
-                            <option value="science fiction">
-                                Science Fiction
-                            </option>{" "}
-                            <option value="tv movie">TV Movie</option>{" "}
-                            <option value="thriller">Thriller</option>{" "}
-                            <option value="war">War</option>{" "}
-                            <option value="western">Western</option>{" "}
-                        </select>{" "}
-                        <input type="submit" value="Submit" />{" "}
-                    </form>
+                    <FilterandSort />
                 </S.FilterContainer>
                 <S.MoviesContainer>
                     {data?.results?.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
+                        <MovieCard
+                            onClick={ClickCard}
+                            key={movie.id}
+                            movie={movie}
+                        />
                     ))}
                 </S.MoviesContainer>
             </S.MoviespageContainer>
@@ -79,7 +50,7 @@ const Moviespage = () => {
                 <ReactPaginate
                     breakLabel={"..."}
                     nextLabel={"next >"}
-                    onPageChange={handlePageClick}
+                    onPageChange={ClickPage}
                     pageRangeDisplayed={5}
                     pageCount={data?.total_pages}
                     previousLabel={"< previous"}

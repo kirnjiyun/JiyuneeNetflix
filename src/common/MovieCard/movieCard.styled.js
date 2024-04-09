@@ -38,6 +38,7 @@ export const MovieCard = styled.div`
     color: white;
     transition: opacity 0.3s ease, transform 0.3s;
     opacity: 0;
+    cursor: pointer;
 `;
 
 export const Title = styled.h2`
