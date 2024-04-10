@@ -85,7 +85,6 @@ export const Synopsis = styled.p`
     line-height: 1.6;
     text-align: justify;
 `;
-
 export const Credits = styled.ul`
     display: flex;
     flex-wrap: wrap;
@@ -95,6 +94,9 @@ export const Credits = styled.ul`
 `;
 
 export const CreditItem = styled.li`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
     padding: 0.5rem 1rem;
@@ -110,6 +112,26 @@ export const CreditItem = styled.li`
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 `;
+
+export const CreditImage = styled.img`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+`;
+
+export const CreditName = styled.span`
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.2rem;
+`;
+
+export const CreditCharacter = styled.span`
+    color: #ccc;
+    text-align: center;
+    font-size: 0.8rem;
+`;
 export const ReleaseDate = styled.p`
     margin-bottom: 1rem;
 `;
@@ -117,7 +139,6 @@ export const Runtime = styled(ReleaseDate)``;
 export const Vote = styled(ReleaseDate)`
     font-size: 1.5rem;
 `;
-
 export const ReviewContainer = styled.div`
     width: 100%;
 `;
@@ -161,10 +182,65 @@ export const ReviewItem = styled.li`
   `}
 `;
 
+export const ReviewAuthor = styled.h3`
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid white;
+    display: inline-block;
+    color: white;
+`;
 export const ReviewText = styled.p`
+    margin-bottom: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
-    -webkit-line-clamp: ${({ expanded }) => (expanded ? "none" : 2)};
+    -webkit-line-clamp: ${({ expanded }) => (expanded ? "none" : 3)};
     -webkit-box-orient: vertical;
+`;
+
+export const ReviewDate = styled.span`
+    font-size: 0.9rem;
+    color: lightgray;
+`;
+export const ShowMoreButton = styled.button`
+    background-color: #dc1a28;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #b8151f;
+    }
+`;
+export const NoReviewsMessage = styled.p`
+    font-size: 1.2rem;
+    color: #777;
+    text-align: center;
+    margin-top: 2rem;
+`;
+export const ShowLessButton = styled.button`
+    background-color: #dc1a28;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #b8151f;
+    }
+`;
+
+export const ReviewButtonsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
 `;
