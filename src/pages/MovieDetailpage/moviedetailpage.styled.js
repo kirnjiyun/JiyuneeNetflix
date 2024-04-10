@@ -85,7 +85,6 @@ export const Synopsis = styled.p`
     line-height: 1.6;
     text-align: justify;
 `;
-
 export const Credits = styled.ul`
     display: flex;
     flex-wrap: wrap;
@@ -95,6 +94,9 @@ export const Credits = styled.ul`
 `;
 
 export const CreditItem = styled.li`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-right: 1rem;
     margin-bottom: 0.5rem;
     padding: 0.5rem 1rem;
@@ -109,6 +111,26 @@ export const CreditItem = styled.li`
         transform: translateY(-2px);
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
+`;
+
+export const CreditImage = styled.img`
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+`;
+
+export const CreditName = styled.span`
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.2rem;
+`;
+
+export const CreditCharacter = styled.span`
+    color: #ccc;
+    text-align: center;
+    font-size: 0.8rem;
 `;
 export const ReleaseDate = styled.p`
     margin-bottom: 1rem;

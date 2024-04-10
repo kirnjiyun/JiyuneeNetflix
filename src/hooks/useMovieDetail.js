@@ -24,3 +24,15 @@ export const useMovieDetailReviewsQuery = (movieId) => {
         enabled: !!movieId,
     });
 };
+
+const fetchMovieDetailCasts = async (movieId) => {
+    const response = await api.get(`/movie/${movieId}/credits`);
+    return response.data;
+};
+export const useMovieDetailCastsQuery = (movieId) => {
+    return useQuery({
+        queryKey: ["movie-detail-casts", movieId],
+        queryFn: () => fetchMovieDetailCasts(movieId),
+        enabled: !!movieId,
+    });
+};

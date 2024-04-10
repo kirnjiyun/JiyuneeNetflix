@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import * as S from "./moviedetailpage.styled";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
+import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
 import { useParams } from "react-router-dom";
-import reviews from "../../constants/reviews";
 const MovieDetailPage = () => {
     const [expandedReview, setExpandedReview] = useState(null);
     const [visibleReviews, setVisibleReviews] = useState(5);
     const { id } = useParams();
     const { data, isLoading, isError } = useMovieDetailQuery(id);
     const { data: reviewData } = useMovieDetailReviewsQuery(id);
-
+    const { data: CreditsData } = useMovieDetailCastsQuery(id);
     const handleReviewClick = (i) => {
         if (expandedReview === i) {
             setExpandedReview(null);
@@ -37,7 +37,6 @@ const MovieDetailPage = () => {
 
     const displayedReviews = reviewData?.results?.slice(0, visibleReviews);
     const hasMoreReviews = reviewData?.results?.length > visibleReviews;
-
     return (
         <S.MovieDetailContainer>
             <S.MovieContent>
@@ -59,11 +58,18 @@ const MovieDetailPage = () => {
                     </S.GenreList>
                     <S.Synopsis>{data?.overview}</S.Synopsis>
                     <S.Credits>
-                        {/* {data?.credits.cast.slice(0, 3).map((cast) => (
+                        {CreditsData?.cast?.slice(0, 6).map((cast) => (
                             <S.CreditItem key={cast.id}>
-                                {cast.name}
+                                <S.CreditImage
+                                    src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
+                                    alt={cast.name}
+                                />
+                                <S.CreditName>{cast.name}</S.CreditName>
+                                <S.CreditCharacter>
+                                    {cast.character}
+                                </S.CreditCharacter>
                             </S.CreditItem>
-                        ))} */}
+                        ))}
                     </S.Credits>
                     <S.ReleaseDate>
                         Release Date : {data?.release_date}
