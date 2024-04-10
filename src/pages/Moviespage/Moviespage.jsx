@@ -1,17 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import * as S from "./moviespage.styled";
-import ReactPaginate from "react-paginate";
-import { useNavigate } from "react-router-dom";
-import FilterandSort from "./components/FilterandSort";
+import FilterandSort from "./components/filterandSort/FilterandSort";
 import Loading from "../../common/Loading/Loading";
+import Pagination from "./components/pagination/Pagination";
+
 const Moviespage = () => {
     const [query] = useSearchParams();
     const keyword = query.get("q");
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
+    const [selectedGenre, setSelectedGenre] = useState("all");
+    const [filteredResults, setFilteredResults] = useState([]);
 
     const ClickPage = ({ selected }) => {
         setPage(selected + 1);
@@ -26,6 +28,22 @@ const Moviespage = () => {
         page,
     });
 
+    const handleGenreChange = (genre) => {
+        setSelectedGenre(genre);
+    };
+
+    useEffect(() => {
+        if (data?.results) {
+            const filtered = data.results.filter((movie) => {
+                if (selectedGenre === "all") {
+                    return true;
+                }
+                return movie.genre_ids.includes(parseInt(selectedGenre));
+            });
+            setFilteredResults(filtered);
+        }
+    }, [data, selectedGenre]);
+
     if (isLoading) {
         return <Loading />;
     }
@@ -34,18 +52,23 @@ const Moviespage = () => {
         return <div>{error.message}</div>;
     }
 
-    const hasResults = data?.results?.length > 0;
-
+    const hasResults = filteredResults?.length > 0;
+    const goBack = () => {
+        navigate(-1);
+    };
     return (
         <S.Container>
             {hasResults ? (
                 <>
                     <S.MoviespageContainer>
                         <S.FilterContainer>
-                            <FilterandSort />
+                            <FilterandSort
+                                onGenreChange={handleGenreChange}
+                                selectedGenre={selectedGenre}
+                            />
                         </S.FilterContainer>
                         <S.MoviesContainer>
-                            {data.results.map((movie) => (
+                            {filteredResults.map((movie) => (
                                 <MovieCard
                                     onClick={ClickCard}
                                     key={movie.id}
@@ -55,21 +78,10 @@ const Moviespage = () => {
                         </S.MoviesContainer>
                     </S.MoviespageContainer>
                     <S.PagenationWrap>
-                        <ReactPaginate
-                            breakLabel={"..."}
-                            nextLabel={" >"}
+                        <Pagination
+                            totalPages={data?.total_pages}
+                            currentPage={page}
                             onPageChange={ClickPage}
-                            pageRangeDisplayed={5}
-                            pageCount={data?.total_pages}
-                            previousLabel={"< "}
-                            previousClassName="page-item"
-                            nextClassName="page-item"
-                            breakClassName="break"
-                            containerClassName="pagination"
-                            pageClassName="page-item"
-                            activeClassName="active"
-                            disabledClassName="disabled"
-                            forcePage={page - 1}
                         />
                     </S.PagenationWrap>
                 </>
@@ -78,6 +90,7 @@ const Moviespage = () => {
                     <S.NoResultsMessage>
                         No results found for your search.
                     </S.NoResultsMessage>
+                    <S.GoBackButton onClick={goBack}>Go Back</S.GoBackButton>
                 </S.NoResultsContainer>
             )}
         </S.Container>

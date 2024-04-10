@@ -28,7 +28,7 @@ export const PosterContainer = styled.div`
     width: 100%;
     aspect-ratio: 1/1.5;
     margin-right: 2rem;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px;
@@ -80,9 +80,13 @@ export const Genre = styled.li`
 `;
 
 export const Synopsis = styled.p`
-    margin-bottom: 1rem;
-    line-height: 1.6;
+    margin-bottom: 1.5rem;
     text-align: justify;
+    font-size: 1rem;
+    padding: 1.5rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 `;
 export const Credits = styled.ul`
     display: flex;
