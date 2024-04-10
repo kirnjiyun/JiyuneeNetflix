@@ -100,3 +100,15 @@ export const PagenationWrap = styled.div`
         padding: 0px 8px 0px 8px;
     }
 `;
+export const NoResultsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+`;
+
+export const NoResultsMessage = styled.p`
+    font-size: 2rem;
+    color: #777;
+    text-align: center;
+`;
