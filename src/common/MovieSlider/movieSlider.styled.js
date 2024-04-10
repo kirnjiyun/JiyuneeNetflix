@@ -8,7 +8,9 @@ export const CarouselContainer = styled.div`
     .carousel-container {
         overflow: visible;
     }
-
+    .carousel-item {
+        margin: 0 15px;
+    }
     .carousel-item:hover {
         z-index: 100;
     }
