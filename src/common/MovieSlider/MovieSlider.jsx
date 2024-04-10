@@ -2,11 +2,10 @@ import * as S from "./movieSlider.styled";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
-
 const MovieSlider = ({ title, movies, responsive, onClick }) => {
     return (
         <S.CarouselContainer>
-            <S.Title>{title}</S.Title>
+            <S.Title>🍿{title}🥤</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}

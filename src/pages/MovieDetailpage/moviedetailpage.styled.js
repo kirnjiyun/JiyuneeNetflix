@@ -3,78 +3,76 @@ import styled from "styled-components";
 export const MovieDetailContainer = styled.div`
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 2rem;
-    background-color: black;
-    color: white;
-
-    @media (min-width: 768px) {
-        padding: 2rem 10%;
-    }
 
     @media (min-width: 1024px) {
-        padding: 2rem 10%;
-    }
-
-    @media (min-width: 1440px) {
         padding: 2rem 10%;
     }
 `;
 export const MovieContent = styled.div`
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-direction: row;
+    justify-content: center;
 
-    @media (min-width: 768px) {
-        flex-direction: row;
+    @media (max-width: 768px) {
+        flex-direction: column;
         justify-content: center;
-        align-items: flex-start;
-        width: 100%;
+        align-items: center;
         margin-bottom: 4rem;
     }
 `;
 
 export const PosterContainer = styled.div`
-    margin-bottom: 2rem;
-    height: 750px;
-    width: 500px;
-    background-size: contain;
+    flex: 1;
+    width: 100%;
+    aspect-ratio: 1/1.5;
+    margin-right: 2rem;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    @media (min-width: 768px) {
-        margin-right: 4rem;
-        margin-bottom: 0;
+
+    @media (max-width: 768px) {
+        margin: 1rem;
+        width: 100%;
+        height: 0;
+        padding-bottom: 150%;
     }
 `;
+
 export const MovieDetails = styled.div`
+    flex: 1;
     display: flex;
     flex-direction: column;
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
         flex: 1;
     }
 `;
-
 export const Title = styled.h1`
     font-size: 3rem;
     margin-bottom: 1rem;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     letter-spacing: 1px;
     font-weight: bold;
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 `;
 
 export const GenreList = styled.ul`
     display: flex;
-    list-style: none;
+    flex-wrap: wrap;
     padding: 0;
     margin-bottom: 1rem;
 `;
 
 export const Genre = styled.li`
     margin-right: 1rem;
+    margin-bottom: 1rem;
     padding: 0.5rem 1rem;
     background-color: #dc1a28;
     color: white;
@@ -84,6 +82,8 @@ export const Genre = styled.li`
 
 export const Synopsis = styled.p`
     margin-bottom: 1rem;
+    line-height: 1.6;
+    text-align: justify;
 `;
 
 export const Credits = styled.ul`
@@ -114,7 +114,9 @@ export const ReleaseDate = styled.p`
     margin-bottom: 1rem;
 `;
 export const Runtime = styled(ReleaseDate)``;
-export const Vote = styled(ReleaseDate)``;
+export const Vote = styled(ReleaseDate)`
+    font-size: 1.5rem;
+`;
 
 export const ReviewContainer = styled.div`
     width: 100%;
