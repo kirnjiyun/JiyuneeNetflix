@@ -11,7 +11,7 @@ export const Navbar = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 2rem 2rem;
     background-color: #000;
 
     @media (max-width: 768px) {
@@ -22,7 +22,7 @@ export const Navbar = styled.nav`
 
 export const Logo = styled.img`
     height: 2rem;
-    cursor: pointer;
+
     @media (max-width: 768px) {
         margin-bottom: 1rem;
     }
