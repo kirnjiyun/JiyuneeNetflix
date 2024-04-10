@@ -13,3 +13,14 @@ export const useMovieDetailQuery = (movieId) => {
         enabled: !!movieId,
     });
 };
+const fetchMovieDetailReviews = async (movieId) => {
+    const response = await api.get(`/movie/${movieId}/reviews`);
+    return response.data;
+};
+export const useMovieDetailReviewsQuery = (movieId) => {
+    return useQuery({
+        queryKey: ["movie-detail-reviews", movieId],
+        queryFn: () => fetchMovieDetailReviews(movieId),
+        enabled: !!movieId,
+    });
+};
