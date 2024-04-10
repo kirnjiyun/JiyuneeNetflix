@@ -48,11 +48,11 @@ const Moviespage = () => {
             <S.PagenationWrap>
                 <ReactPaginate
                     breakLabel={"..."}
-                    nextLabel={"next >"}
+                    nextLabel={" >"}
                     onPageChange={ClickPage}
                     pageRangeDisplayed={5}
                     pageCount={data?.total_pages}
-                    previousLabel={"< previous"}
+                    previousLabel={"< "}
                     previousClassName="page-item"
                     nextClassName="page-item"
                     breakClassName="break"

@@ -47,8 +47,10 @@ export const PagenationWrap = styled.div`
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 2px;
         width: 50vw;
-        min-width: 555px;
+        min-width: 380px;
+        flex-wrap: wrap;
         padding: 40px 20px 40px 20px;
     }
 
@@ -67,6 +69,7 @@ export const PagenationWrap = styled.div`
         &:hover {
             color: white;
             background-color: #dc1a28;
+            width: fit-content;
         }
     }
     .active {

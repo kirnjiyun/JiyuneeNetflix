@@ -3,6 +3,7 @@ import * as S from "./appLayout.styled";
 import { Outlet } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
+import Footer from "../common/Footer/Footer";
 
 const AppLayout = () => {
     const [keyword, setKeyword] = useState("");
@@ -48,6 +49,7 @@ const AppLayout = () => {
                 </S.SearchContainer>
             </S.Navbar>
             <Outlet />
+            <Footer />
         </S.AppLayout>
     );
 };

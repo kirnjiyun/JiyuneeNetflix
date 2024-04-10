@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import * as S from "./moviedetailpage.styled";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { useParams } from "react-router-dom";
-
 import reviews from "../../constants/reviews";
 const MovieDetailPage = () => {
     const [expandedReview, setExpandedReview] = useState(null);
