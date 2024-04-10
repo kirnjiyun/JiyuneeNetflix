@@ -6,7 +6,7 @@ import * as S from "./moviespage.styled";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import FilterandSort from "./components/FilterandSort";
-
+import Loading from "../../common/Loading/Loading";
 const Moviespage = () => {
     const [query] = useSearchParams();
     const keyword = query.get("q");
@@ -27,7 +27,7 @@ const Moviespage = () => {
     });
 
     if (isLoading) {
-        return <div>Loading... (loadingspinner 추가해야됨)</div>;
+        return <Loading />;
     }
 
     if (isError) {

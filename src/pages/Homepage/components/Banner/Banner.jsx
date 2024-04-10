@@ -1,12 +1,12 @@
 import React from "react";
 import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
 import * as S from "./banner.styled";
-
+import Loading from "../../../../common/Loading/Loading";
 const Banner = () => {
     const { data, isLoading, isError, error } = usePopularMoviesQuery();
 
     if (isLoading) {
-        return <div>Loading... loadingspinner 추가해야됨</div>;
+        return <Loading />;
     }
 
     if (isError) {

@@ -4,6 +4,7 @@ import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
 import { useParams } from "react-router-dom";
+import Loading from "../../common/Loading/Loading";
 const MovieDetailPage = () => {
     const [expandedReview, setExpandedReview] = useState(null);
     const [visibleReviews, setVisibleReviews] = useState(5);
@@ -28,7 +29,7 @@ const MovieDetailPage = () => {
     };
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <Loading />;
     }
 
     if (isError) {
@@ -80,7 +81,7 @@ const MovieDetailPage = () => {
             </S.MovieContent>
             <S.ReviewContainer>
                 <S.ReviewTitle>
-                    Reviews ({reviewData?.total_results})
+                    📝 Reviews ({reviewData?.total_results})
                 </S.ReviewTitle>
                 {reviewData?.results?.length === 0 ? (
                     <S.NoReviewsMessage>
