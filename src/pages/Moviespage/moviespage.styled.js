@@ -100,3 +100,29 @@ export const PagenationWrap = styled.div`
         padding: 0px 8px 0px 8px;
     }
 `;
+export const NoResultsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+`;
+
+export const NoResultsMessage = styled.p`
+    font-size: 2rem;
+    color: #777;
+    text-align: center;
+`;
+export const GoBackButton = styled.button`
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    border: none;
+    background-color: #dc1a28;
+    color: white;
+    cursor: pointer;
+    margin-top: 1rem;
+
+    &:hover {
+        background-color: #b91622;
+    }
+`;
