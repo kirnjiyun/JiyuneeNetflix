@@ -22,7 +22,7 @@ export const Navbar = styled.nav`
 
 export const Logo = styled.img`
     height: 2rem;
-
+    cursor: pointer;
     @media (max-width: 768px) {
         margin-bottom: 1rem;
     }

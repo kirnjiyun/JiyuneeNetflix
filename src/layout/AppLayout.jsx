@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as S from "./appLayout.styled";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +18,9 @@ const AppLayout = () => {
         <S.AppLayout>
             <S.Navbar>
                 <S.NavLinks>
-                    <S.Logo src={logo} alt="Netflix Logo" />
+                    <Link to="/">
+                        <S.Logo src={logo} alt="Yunflix Logo" />
+                    </Link>
                     <S.NavLink to="/">Home</S.NavLink>
                     <S.NavLink to="/movies">Movies</S.NavLink>
                 </S.NavLinks>
