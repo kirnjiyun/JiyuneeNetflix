@@ -13,8 +13,7 @@ const MovieSlider = ({ title, movies, responsive, onClick }) => {
                 responsive={responsive}
                 itemClass="carousel-item"
                 autoPlay={true}
-                autoPlaySpeed={4000}
-                transitionDuration={4000}
+                autoPlaySpeed={3000}
             >
                 {movies.map((movie, i) => (
                     <MovieCard onClick={onClick} movie={movie} key={i} />

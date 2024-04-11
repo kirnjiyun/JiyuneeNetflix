@@ -14,7 +14,7 @@ export const MovieCardContainer = styled.div`
     cursor: pointer;
 
     &:hover {
-        transform: scale(1.3);
+        transform: scale(1.1);
         z-index: 2;
 
         & > div {
