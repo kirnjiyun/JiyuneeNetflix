@@ -5,27 +5,18 @@ import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
 import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
+import ReviewSection from "./components/Reviews/ReviewSection";
+import RecommendSection from "./components/Recommendations/RecommendSection";
+
 const MovieDetailPage = () => {
-    const [expandedReview, setExpandedReview] = useState(null);
-    const [visibleReviews, setVisibleReviews] = useState(5);
+    const [selectedSection, setSelectedSection] = useState("reviews");
     const { id } = useParams();
     const { data, isLoading, isError } = useMovieDetailQuery(id);
     const { data: reviewData } = useMovieDetailReviewsQuery(id);
     const { data: CreditsData } = useMovieDetailCastsQuery(id);
-    const handleReviewClick = (i) => {
-        if (expandedReview === i) {
-            setExpandedReview(null);
-        } else {
-            setExpandedReview(i);
-        }
-    };
 
-    const showMoreReviews = () => {
-        setVisibleReviews(reviewData?.results?.length);
-    };
-
-    const showLessReviews = () => {
-        setVisibleReviews(5);
+    const handleSectionClick = (section) => {
+        setSelectedSection(section);
     };
 
     if (isLoading) {
@@ -36,8 +27,6 @@ const MovieDetailPage = () => {
         return <div>Error occurred while fetching movie details.</div>;
     }
 
-    const displayedReviews = reviewData?.results?.slice(0, visibleReviews);
-    const hasMoreReviews = reviewData?.results?.length > visibleReviews;
     return (
         <S.MovieDetailContainer>
             <S.MovieContent>
@@ -79,57 +68,28 @@ const MovieDetailPage = () => {
                     <S.Vote>★ {data?.vote_average.toFixed(1)}</S.Vote>
                 </S.MovieDetails>
             </S.MovieContent>
-            <S.ReviewContainer>
-                <S.ReviewTitle>
+            <S.TitleContainer>
+                <S.ReviewTitle
+                    onClick={() => handleSectionClick("reviews")}
+                    isSelected={selectedSection === "reviews"}
+                >
                     📝 Reviews ({reviewData?.total_results})
                 </S.ReviewTitle>
-                {reviewData?.results?.length === 0 ? (
-                    <S.NoReviewsMessage>
-                        No reviews have been written yet.
-                    </S.NoReviewsMessage>
-                ) : (
-                    <>
-                        <S.ReviewList>
-                            {displayedReviews?.map((review, i) => (
-                                <S.ReviewItem
-                                    key={review.id}
-                                    onClick={() => handleReviewClick(i)}
-                                    expanded={expandedReview === i}
-                                >
-                                    <div>
-                                        <S.ReviewAuthor>
-                                            {review.author}
-                                        </S.ReviewAuthor>
-                                        <S.ReviewText
-                                            expanded={expandedReview === i}
-                                        >
-                                            {review.content}
-                                        </S.ReviewText>
-                                        <S.ReviewDate>
-                                            {new Date(
-                                                review.created_at
-                                            ).toLocaleDateString()}
-                                        </S.ReviewDate>
-                                    </div>
-                                </S.ReviewItem>
-                            ))}
-                        </S.ReviewList>
-                        <S.ReviewButtonsContainer>
-                            {hasMoreReviews && (
-                                <S.ShowMoreButton onClick={showMoreReviews}>
-                                    More...
-                                </S.ShowMoreButton>
-                            )}
-                            {visibleReviews > 5 && (
-                                <S.ShowLessButton onClick={showLessReviews}>
-                                    close
-                                </S.ShowLessButton>
-                            )}
-                        </S.ReviewButtonsContainer>
-                    </>
-                )}
-            </S.ReviewContainer>
+                <S.RecommendTitle
+                    onClick={() => handleSectionClick("recommendations")}
+                    isSelected={selectedSection === "recommendations"}
+                >
+                    🎞️ Recommended movies
+                </S.RecommendTitle>
+            </S.TitleContainer>
+            {selectedSection === "reviews" && (
+                <ReviewSection reviewData={reviewData} />
+            )}
+            {selectedSection === "recommendations" && (
+                <RecommendSection movieId={id} />
+            )}
         </S.MovieDetailContainer>
     );
 };
+
 export default MovieDetailPage;
