@@ -1,6 +1,5 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import * as S from "./pagination.styled";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const handlePageChange = (selectedItem) => {
