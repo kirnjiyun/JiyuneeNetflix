@@ -25,6 +25,7 @@ export const MovieContent = styled.div`
 
 export const PosterContainer = styled.div`
     flex: 1;
+    cursor: pointer;
     width: 100%;
     aspect-ratio: 1/1.5;
     margin-right: 2rem;
@@ -162,3 +163,8 @@ export const ReviewTitle = styled.h2`
 `;
 
 export const RecommendTitle = styled(ReviewTitle)``;
+export const TrailerMessage = styled.p`
+    margin-top: 10px;
+    font-size: 14px;
+    color: #888;
+`;

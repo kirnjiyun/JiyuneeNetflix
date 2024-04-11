@@ -48,7 +48,12 @@ const MovieDetailPage = () => {
                             <S.Genre key={genre.id}>{genre.name}</S.Genre>
                         ))}
                     </S.GenreList>
-                    <S.Synopsis>{data?.overview}</S.Synopsis>
+                    <S.Synopsis>
+                        {data?.overview}{" "}
+                        <S.TrailerMessage>
+                            Click on the poster to watch the trailer
+                        </S.TrailerMessage>
+                    </S.Synopsis>
                     <S.Credits>
                         {CreditsData?.cast?.slice(0, 6).map((cast) => (
                             <S.CreditItem key={cast.id}>
