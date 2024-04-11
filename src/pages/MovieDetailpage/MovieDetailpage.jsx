@@ -8,18 +8,23 @@ import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import ReviewSection from "./components/Reviews/ReviewSection";
 import RecommendSection from "./components/Recommendations/RecommendSection";
+import { Modal } from "react-bootstrap";
 
 const MovieDetailPage = () => {
     const [selectedSection, setSelectedSection] = useState("reviews");
+    const [showModal, setShowModal] = useState(false);
     const { id } = useParams();
     const { data, isLoading, isError } = useMovieDetailQuery(id);
     const { data: reviewData } = useMovieDetailReviewsQuery(id);
     const { data: CreditsData } = useMovieDetailCastsQuery(id);
     const { data: RecommendData } = useMovieRecommendQuery(id);
-    console.log("cncjs", RecommendData);
+
     const handleSectionClick = (section) => {
         setSelectedSection(section);
     };
+
+    const handleModalOpen = () => setShowModal(true);
+    const handleModalClose = () => setShowModal(false);
 
     if (isLoading) {
         return <Loading />;
@@ -39,6 +44,7 @@ const MovieDetailPage = () => {
                             `https://www.themoviedb.org/t/p/w500${data.poster_path}` +
                             ")",
                     }}
+                    onClick={handleModalOpen}
                 />
 
                 <S.MovieDetails>
@@ -95,6 +101,19 @@ const MovieDetailPage = () => {
             {selectedSection === "recommendations" && (
                 <RecommendSection recommendData={RecommendData} />
             )}
+
+            <S.ModalWrapper show={showModal} onHide={handleModalClose}>
+                <Modal.Header>
+                    <Modal.Title>{data?.title}</Modal.Title>
+                    <S.CloseButton onClick={handleModalClose}>
+                        &times;
+                    </S.CloseButton>
+                </Modal.Header>
+                <S.ModalContent>
+                    {/* 여기에 트레일러 비디오 또는 추가 정보를 넣을 수 있습니다 */}
+                    <p>Trailer video goes here</p>
+                </S.ModalContent>
+            </S.ModalWrapper>
         </S.MovieDetailContainer>
     );
 };
