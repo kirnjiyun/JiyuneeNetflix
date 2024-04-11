@@ -156,6 +156,9 @@ export const ReviewTitle = styled.h2`
     cursor: pointer;
     color: ${({ isSelected }) => (isSelected ? "#dc1a28" : "white")};
     flex-wrap: nowrap;
+    @media (max-width: 768px) {
+        font-size: 1rem;
+    }
 `;
 
 export const RecommendTitle = styled(ReviewTitle)``;

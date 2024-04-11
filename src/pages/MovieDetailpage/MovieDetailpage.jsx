@@ -3,6 +3,7 @@ import * as S from "./moviedetailpage.styled";
 import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
+import { useMovieRecommendQuery } from "../../hooks/useMovieDetail";
 import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import ReviewSection from "./components/Reviews/ReviewSection";
@@ -14,7 +15,8 @@ const MovieDetailPage = () => {
     const { data, isLoading, isError } = useMovieDetailQuery(id);
     const { data: reviewData } = useMovieDetailReviewsQuery(id);
     const { data: CreditsData } = useMovieDetailCastsQuery(id);
-
+    const { data: RecommendData } = useMovieRecommendQuery(id);
+    console.log("cncjs", RecommendData);
     const handleSectionClick = (section) => {
         setSelectedSection(section);
     };
@@ -86,7 +88,7 @@ const MovieDetailPage = () => {
                 <ReviewSection reviewData={reviewData} />
             )}
             {selectedSection === "recommendations" && (
-                <RecommendSection movieId={id} />
+                <RecommendSection recommendData={RecommendData} />
             )}
         </S.MovieDetailContainer>
     );
