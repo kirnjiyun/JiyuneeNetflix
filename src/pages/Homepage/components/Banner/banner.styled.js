@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const BannerContainer = styled.div`
     position: relative;
+    cursor: pointer;
     width: 100%;
     height: 56vh;
     background-size: cover;
