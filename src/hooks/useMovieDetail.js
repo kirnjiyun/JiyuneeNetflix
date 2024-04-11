@@ -36,3 +36,16 @@ export const useMovieDetailCastsQuery = (movieId) => {
         enabled: !!movieId,
     });
 };
+
+const fetchMovieRecommend = async (movieId) => {
+    const response = await api.get(`/movie/${movieId}/recommendations`);
+    return response.data;
+};
+
+export const useMovieRecommendQuery = (movieId) => {
+    return useQuery({
+        queryKey: ["movie-recommend", movieId],
+        queryFn: () => fetchMovieRecommend(movieId),
+        enabled: !!movieId,
+    });
+};
