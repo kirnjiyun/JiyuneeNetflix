@@ -42,12 +42,13 @@ export const PagenationWrap = styled.div`
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    flex-wrap: wrap;
 
     .pagination {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 2px;
+        gap: 10px;
         width: 50vw;
         min-width: 380px;
         flex-wrap: wrap;
@@ -56,27 +57,28 @@ export const PagenationWrap = styled.div`
 
     .page-item {
         cursor: pointer;
-        height: 27px;
+        height: 30px;
+        font-size: 1.2rem;
         display: flex;
         justify-content: center;
         align-items: center;
-
+        padding: 0 4px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 3px;
-        margin-right: 4px;
-        padding: 0px 8px 0px 8px;
-
         &:hover {
             color: white;
             background-color: #dc1a28;
-            width: fit-content;
         }
     }
     .active {
         color: white;
         background-color: #dc1a28;
         transition: all 0.3s;
-        transform: scale(1.3);
+        transform: scale(1.2);
+        padding: 0px 8px 0px 8px;
+        height: 27px;
+        justify-content: center;
+        align-items: center;
     }
     .break {
         height: 27px;
@@ -94,12 +96,12 @@ export const PagenationWrap = styled.div`
         display: flex;
         justify-content: center;
         align-items: center;
-
         border-radius: 3px;
         margin-right: 4px;
         padding: 0px 8px 0px 8px;
     }
 `;
+
 export const NoResultsContainer = styled.div`
     display: flex;
     flex-direction: column;
