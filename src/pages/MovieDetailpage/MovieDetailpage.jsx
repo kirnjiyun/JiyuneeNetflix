@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import ReviewSection from "./components/Reviews/ReviewSection";
 import RecommendSection from "./components/Recommendations/RecommendSection";
-import { Modal } from "react-bootstrap";
+import MovieModal from "./components/MovieModal/MovieModal";
 
 const MovieDetailPage = () => {
     const [selectedSection, setSelectedSection] = useState("reviews");
@@ -102,18 +102,11 @@ const MovieDetailPage = () => {
                 <RecommendSection recommendData={RecommendData} />
             )}
 
-            <S.ModalWrapper show={showModal} onHide={handleModalClose}>
-                <Modal.Header>
-                    <Modal.Title>{data?.title}</Modal.Title>
-                    <S.CloseButton onClick={handleModalClose}>
-                        &times;
-                    </S.CloseButton>
-                </Modal.Header>
-                <S.ModalContent>
-                    {/* 여기에 트레일러 비디오 또는 추가 정보를 넣을 수 있습니다 */}
-                    <p>Trailer video goes here</p>
-                </S.ModalContent>
-            </S.ModalWrapper>
+            <MovieModal
+                show={showModal}
+                onHide={handleModalClose}
+                title={data?.title}
+            />
         </S.MovieDetailContainer>
     );
 };
