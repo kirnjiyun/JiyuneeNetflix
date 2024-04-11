@@ -1,6 +1,5 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-
 const Pagination = ({ totalPages, currentPage, onPageChange }) => {
     const paginationProps = {
         breakLabel: "...",
@@ -18,12 +17,11 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         disabledClassName: "disabled",
         forcePage: currentPage - 1,
     };
-
     return (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
-            <ReactPaginate {...paginationProps} />
+            {" "}
+            <ReactPaginate {...paginationProps} />{" "}
         </div>
     );
 };
-
 export default Pagination;

@@ -16,8 +16,8 @@ const Moviespage = () => {
     const [selectedSort, setSelectedSort] = useState("");
     const [filteredResults, setFilteredResults] = useState([]);
 
-    const ClickPage = ({ selected }) => {
-        setPage(selected + 1);
+    const ClickPage = (selected) => {
+        setPage(selected);
     };
 
     const ClickCard = (movie) => {
@@ -56,6 +56,7 @@ const Moviespage = () => {
             setFilteredResults(filtered);
         }
     }, [data, selectedGenre, selectedSort]);
+
     console.log(data?.results);
 
     if (isLoading) {
