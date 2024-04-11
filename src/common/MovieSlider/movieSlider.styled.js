@@ -6,7 +6,7 @@ export const CarouselContainer = styled.div`
     }
 
     .carousel-container {
-        overflow: visible;
+        overflow: hidden;
     }
     .carousel-item {
         margin: 0 15px;

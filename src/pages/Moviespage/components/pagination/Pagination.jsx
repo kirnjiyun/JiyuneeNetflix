@@ -19,7 +19,11 @@ const Pagination = ({ totalPages, currentPage, onPageChange }) => {
         forcePage: currentPage - 1,
     };
 
-    return <ReactPaginate {...paginationProps} />;
+    return (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+            <ReactPaginate {...paginationProps} />
+        </div>
+    );
 };
 
 export default Pagination;
