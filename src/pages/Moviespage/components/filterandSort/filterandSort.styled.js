@@ -30,7 +30,6 @@ export const Select = styled.select`
     font-weight: bold;
     appearance: none;
     text-align-last: center;
-
     &:focus {
         outline: none;
     }

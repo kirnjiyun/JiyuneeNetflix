@@ -13,6 +13,7 @@ const Moviespage = () => {
     const navigate = useNavigate();
     const [page, setPage] = useState(1);
     const [selectedGenre, setSelectedGenre] = useState("all");
+    const [selectedSort, setSelectedSort] = useState("");
     const [filteredResults, setFilteredResults] = useState([]);
 
     const ClickPage = ({ selected }) => {
@@ -32,17 +33,30 @@ const Moviespage = () => {
         setSelectedGenre(genre);
     };
 
+    const handleSortChange = (sort) => {
+        setSelectedSort(sort);
+    };
+
     useEffect(() => {
         if (data?.results) {
-            const filtered = data.results.filter((movie) => {
-                if (selectedGenre === "all") {
-                    return true;
-                }
-                return movie.genre_ids.includes(parseInt(selectedGenre));
-            });
+            let filtered = data.results;
+
+            if (selectedGenre !== "all") {
+                filtered = filtered.filter((movie) =>
+                    movie.genre_ids.includes(parseInt(selectedGenre))
+                );
+            }
+
+            if (selectedSort === "popularity.asc") {
+                filtered = filtered.sort((a, b) => a.popularity - b.popularity);
+            } else if (selectedSort === "popularity.desc") {
+                filtered = filtered.sort((a, b) => b.popularity - a.popularity);
+            }
+
             setFilteredResults(filtered);
         }
-    }, [data, selectedGenre]);
+    }, [data, selectedGenre, selectedSort]);
+    console.log(data?.results);
 
     if (isLoading) {
         return <Loading />;
@@ -53,9 +67,11 @@ const Moviespage = () => {
     }
 
     const hasResults = filteredResults?.length > 0;
+
     const goBack = () => {
         navigate(-1);
     };
+
     return (
         <S.Container>
             {hasResults ? (
@@ -64,7 +80,9 @@ const Moviespage = () => {
                         <S.FilterContainer>
                             <FilterandSort
                                 onGenreChange={handleGenreChange}
+                                onSortChange={handleSortChange}
                                 selectedGenre={selectedGenre}
+                                selectedSort={selectedSort}
                             />
                         </S.FilterContainer>
                         <S.MoviesContainer>
