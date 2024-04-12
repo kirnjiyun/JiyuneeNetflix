@@ -1,8 +1,19 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 import * as S from "./movieModal.styled";
+import YouTube from "react-youtube";
 
-const MovieModal = ({ show, onHide, title }) => {
+const MovieModal = ({ show, onHide, title, videosData }) => {
+    const videoKey = videosData?.results[0]?.key;
+
+    const opts = {
+        height: "390",
+        width: "640",
+        playerVars: {
+            autoplay: 1,
+        },
+    };
+
     return (
         <S.ModalWrapper show={show} onHide={onHide}>
             <Modal.Header>
@@ -10,8 +21,7 @@ const MovieModal = ({ show, onHide, title }) => {
                 <S.CloseButton onClick={onHide}>&times;</S.CloseButton>
             </Modal.Header>
             <S.ModalContent>
-                {/* 여기에 트레일러 비디오 또는 추가 정보를 넣을 수 있습니다 */}
-                <p>Trailer video goes here</p>
+                {videoKey && <YouTube videoId={videoKey} opts={opts} />}
             </S.ModalContent>
         </S.ModalWrapper>
     );

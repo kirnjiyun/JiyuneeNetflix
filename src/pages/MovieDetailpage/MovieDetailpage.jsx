@@ -9,6 +9,7 @@ import Loading from "../../common/Loading/Loading";
 import ReviewSection from "./components/Reviews/ReviewSection";
 import RecommendSection from "./components/Recommendations/RecommendSection";
 import MovieModal from "./components/MovieModal/MovieModal";
+import { useMovieVideosQuery } from "../../hooks/useMovieDetail";
 
 const MovieDetailPage = () => {
     const [selectedSection, setSelectedSection] = useState("reviews");
@@ -18,6 +19,7 @@ const MovieDetailPage = () => {
     const { data: reviewData } = useMovieDetailReviewsQuery(id);
     const { data: CreditsData } = useMovieDetailCastsQuery(id);
     const { data: RecommendData } = useMovieRecommendQuery(id);
+    const { data: videosData } = useMovieVideosQuery(id);
 
     const handleSectionClick = (section) => {
         setSelectedSection(section);
@@ -106,6 +108,7 @@ const MovieDetailPage = () => {
                 show={showModal}
                 onHide={handleModalClose}
                 title={data?.title}
+                videosData={videosData}
             />
         </S.MovieDetailContainer>
     );

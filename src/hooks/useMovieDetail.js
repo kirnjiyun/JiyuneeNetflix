@@ -49,3 +49,15 @@ export const useMovieRecommendQuery = (movieId) => {
         enabled: !!movieId,
     });
 };
+const fetchMovieVideos = async (movieId) => {
+    const response = await api.get(`/movie/${movieId}/videos`);
+    return response.data;
+};
+
+export const useMovieVideosQuery = (movieId) => {
+    return useQuery({
+        queryKey: ["movie-videos", movieId],
+        queryFn: () => fetchMovieVideos(movieId),
+        enabled: !!movieId,
+    });
+};
