@@ -27,6 +27,9 @@ const MovieDetailPage = () => {
 
     const handleModalOpen = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
+    const handleModalClick = (event) => {
+        event.stopPropagation();
+    };
 
     if (isLoading) {
         return <Loading />;
@@ -57,7 +60,7 @@ const MovieDetailPage = () => {
                         ))}
                     </S.GenreList>
                     <S.Synopsis>
-                        {data?.overview}{" "}
+                        {data?.overview}
                         <S.TrailerMessage>
                             Click on the poster to watch the trailer
                         </S.TrailerMessage>
@@ -77,10 +80,10 @@ const MovieDetailPage = () => {
                         ))}
                     </S.Credits>
                     <S.ReleaseDate>
-                        Release Date : {data?.release_date}
+                        📍 Release Date : {data?.release_date}
                     </S.ReleaseDate>
-                    <S.Runtime>RunTime : {data?.runtime} minutes</S.Runtime>
-                    <S.Vote>★ {data?.vote_average.toFixed(1)}</S.Vote>
+                    <S.Runtime>⏰ RunTime : {data?.runtime} minutes</S.Runtime>
+                    <S.Vote> ⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
                 </S.MovieDetails>
             </S.MovieContent>
             <S.TitleContainer>
@@ -104,11 +107,13 @@ const MovieDetailPage = () => {
                 <RecommendSection recommendData={RecommendData} />
             )}
 
+            {showModal && <S.Overlay onClick={handleModalClose} />}
             <MovieModal
                 show={showModal}
                 onHide={handleModalClose}
                 title={data?.title}
                 videosData={videosData}
+                onClick={handleModalClick}
             />
         </S.MovieDetailContainer>
     );

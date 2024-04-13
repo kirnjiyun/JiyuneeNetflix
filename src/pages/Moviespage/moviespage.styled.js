@@ -5,6 +5,7 @@ export const Container = styled.div`
     justify-content: center;
 `;
 export const MoviespageContainer = styled.div`
+    margin: 0 20px;
     display: grid;
     grid-template-columns: 25% 1fr;
     grid-template-rows: auto auto;

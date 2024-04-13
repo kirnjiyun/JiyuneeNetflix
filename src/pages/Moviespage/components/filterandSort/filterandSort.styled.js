@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: center;
     background-color: #000;
-    padding: 1rem;
     border-radius: 4px;
 `;
 
@@ -30,6 +30,8 @@ export const Select = styled.select`
     font-weight: bold;
     appearance: none;
     text-align-last: center;
+    cursor: pointer;
+
     &:focus {
         outline: none;
     }
