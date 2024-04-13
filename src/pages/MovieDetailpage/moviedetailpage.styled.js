@@ -169,33 +169,7 @@ export const TrailerMessage = styled.p`
     font-size: 14px;
     color: #888;
 `;
-export const ModalWrapper = styled(Modal)`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    color: black;
-`;
 
-export const ModalContent = styled(Modal.Body)`
-    padding: 20px;
-    border-top: 1px solid black;
-    color: black;
-`;
-
-export const CloseButton = styled.button`
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-`;
 export const Overlay = styled.div`
     position: fixed;
     top: 0;
