@@ -22,6 +22,7 @@ const Moviespage = () => {
 
     const ClickCard = (movie) => {
         navigate(`/movies/${movie.id}`);
+        window.scrollTo(0, 0);
     };
 
     const { data, isLoading, isError, error } = useSearchMovieQuery({
