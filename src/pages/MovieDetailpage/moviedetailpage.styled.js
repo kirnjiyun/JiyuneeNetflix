@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Modal } from "react-bootstrap";
 
 export const MovieDetailContainer = styled.div`
     display: flex;

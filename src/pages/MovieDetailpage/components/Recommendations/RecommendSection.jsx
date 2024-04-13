@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./recommendSection.styled";
 import MovieCard from "../../../../common/MovieCard/MovieCard";
