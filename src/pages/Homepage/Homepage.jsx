@@ -6,6 +6,7 @@ import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSli
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
 import responsive from "../../constants/responsive";
 import { useNavigate } from "react-router-dom";
+import OnAirTvShowSlide from "./components/OnAirTvShowSlide/OnAirTvShowSlide";
 
 const Homepage = () => {
     const navigate = useNavigate();
@@ -20,6 +21,7 @@ const Homepage = () => {
             <PopularMovieSlide responsive={responsive} onClick={handleClick} />
             <TopRatedMovieSlide responsive={responsive} onClick={handleClick} />
             <UpcomingMovieSlide responsive={responsive} onClick={handleClick} />
+            {/* <OnAirTvShowSlide responsive={responsive} /> */}
         </S.HomepageContainer>
     );
 };

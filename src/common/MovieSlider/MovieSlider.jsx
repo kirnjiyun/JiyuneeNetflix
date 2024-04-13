@@ -5,7 +5,7 @@ import MovieCard from "../MovieCard/MovieCard";
 const MovieSlider = ({ title, movies, responsive, onClick }) => {
     return (
         <S.CarouselContainer>
-            <S.Title>🍿{title}🥤</S.Title>
+            <S.Title>🍿{title}</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}
