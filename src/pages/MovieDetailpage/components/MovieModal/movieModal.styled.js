@@ -11,6 +11,7 @@ export const ModalWrapper = styled(Modal)`
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
     color: black;
+    z-index: 100;
 `;
 
 export const ModalContent = styled(Modal.Body)`
