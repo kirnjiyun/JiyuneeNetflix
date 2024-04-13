@@ -80,10 +80,10 @@ const MovieDetailPage = () => {
                         ))}
                     </S.Credits>
                     <S.ReleaseDate>
-                        Release Date : {data?.release_date}
+                        📍 Release Date : {data?.release_date}
                     </S.ReleaseDate>
-                    <S.Runtime>RunTime : {data?.runtime} minutes</S.Runtime>
-                    <S.Vote>★ {data?.vote_average.toFixed(1)}</S.Vote>
+                    <S.Runtime>⏰ RunTime : {data?.runtime} minutes</S.Runtime>
+                    <S.Vote> ⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
                 </S.MovieDetails>
             </S.MovieContent>
             <S.TitleContainer>

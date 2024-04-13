@@ -1,9 +1,13 @@
 import React from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as S from "./recommendSection.styled";
 import MovieCard from "../../../../common/MovieCard/MovieCard";
 
 const RecommendSection = ({ recommendData }) => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const navigate = useNavigate();
     const ClickCard = (movie) => {
         navigate(`/movies/${movie.id}`);
