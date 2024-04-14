@@ -1,8 +1,8 @@
-import * as S from "./movieSlider.styled";
+import * as S from "./tvSlider.styled";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import TVCard from "../MovieCard/MovieCard";
-const TvSlider = ({ responsive, tvShows, responsive }) => {
+import TVCard from "../TVCard/TVCard";
+const TvSlider = ({ responsive, tvShows, title }) => {
     return (
         <S.CarouselContainer>
             <S.Title>📺 {title}</S.Title>
@@ -16,11 +16,11 @@ const TvSlider = ({ responsive, tvShows, responsive }) => {
                 autoPlaySpeed={3000}
             >
                 {tvShows.map((tv, i) => (
-                    <TVCard onClick={onClick} tv={tv} key={i} />
+                    <TVCard tv={tv} key={i} />
                 ))}
             </Carousel>
         </S.CarouselContainer>
     );
 };
 
-export default MovieSlider;
+export default TvSlider;

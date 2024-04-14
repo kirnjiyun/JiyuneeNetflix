@@ -1,7 +1,7 @@
 import React from "react";
 import { useTVontheAirQuery } from "../../../../hooks/useTVontheAir";
 import Loading from "../../../../common/Loading/Loading";
-import TvSlider from "../../components/OnAirTvShowSlide/OnAirTvShowSlide.jsx";
+import TvSlider from "../../../../common/TvSlider/TvSlider";
 
 const OnAirTvShowSlide = ({ responsive }) => {
     const { data, isLoading, isError, error } = useTVontheAirQuery();

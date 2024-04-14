@@ -21,7 +21,7 @@ const Homepage = () => {
             <PopularMovieSlide responsive={responsive} onClick={handleClick} />
             <TopRatedMovieSlide responsive={responsive} onClick={handleClick} />
             <UpcomingMovieSlide responsive={responsive} onClick={handleClick} />
-            {/* <OnAirTvShowSlide responsive={responsive} /> */}
+            <OnAirTvShowSlide responsive={responsive} />
         </S.HomepageContainer>
     );
 };
