@@ -1,11 +1,11 @@
-import * as S from "./movieSlider.styled";
+import * as S from "./tvSlider.styled";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import MovieCard from "../MovieCard/MovieCard";
-const MovieSlider = ({ title, movies, responsive, onClick }) => {
+import TVCard from "../TVCard/TVCard";
+const TvSlider = ({ responsive, tvShows, title }) => {
     return (
         <S.CarouselContainer>
-            <S.Title>🍿{title}</S.Title>
+            <S.Title> 📺 {title}</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}
@@ -15,12 +15,12 @@ const MovieSlider = ({ title, movies, responsive, onClick }) => {
                 autoPlay={true}
                 autoPlaySpeed={3000}
             >
-                {movies.map((movie, i) => (
-                    <MovieCard onClick={onClick} movie={movie} key={i} />
+                {tvShows.map((tv, i) => (
+                    <TVCard tv={tv} key={i} />
                 ))}
             </Carousel>
         </S.CarouselContainer>
     );
 };
 
-export default MovieSlider;
+export default TvSlider;
