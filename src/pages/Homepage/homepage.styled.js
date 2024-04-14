@@ -5,5 +5,5 @@ export const HomepageContainer = styled.div`
     flex-direction: column;
     gap: 3rem;
     max-width: 100vw;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 `;
