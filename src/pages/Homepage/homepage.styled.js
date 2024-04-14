@@ -4,5 +4,6 @@ export const HomepageContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3rem;
-    width: 100vw;
+    max-width: 100vw;
+    margin-bottom: 3rem;
 `;

@@ -5,7 +5,7 @@ import TVCard from "../TVCard/TVCard";
 const TvSlider = ({ responsive, tvShows, title }) => {
     return (
         <S.CarouselContainer>
-            <S.Title>📺 {title}</S.Title>
+            <S.Title> 📺 {title}</S.Title>
             <Carousel
                 infinite={true}
                 centerMode={true}
