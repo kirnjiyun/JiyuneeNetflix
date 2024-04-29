@@ -3,7 +3,7 @@ import { usePopularTvQuery } from "../../../../hooks/usePopularTv";
 import Loading from "../../../../common/Loading/Loading";
 import TvSlider from "../../../../common/TvSlider/TvSlider";
 
-const PopularTvshowSlide = ({ responsive }) => {
+const PopularTvshowSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = usePopularTvQuery();
 
     if (isLoading) {
@@ -20,7 +20,7 @@ const PopularTvshowSlide = ({ responsive }) => {
                 title="Popular"
                 tvShows={data.results}
                 responsive={responsive}
-                // onClick={onClick}
+                onClick={onClick}
             />
         </div>
     );

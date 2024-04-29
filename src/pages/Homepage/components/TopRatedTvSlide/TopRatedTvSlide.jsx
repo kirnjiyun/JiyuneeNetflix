@@ -3,7 +3,7 @@ import { useTopRatedTvQuery } from "../../../../hooks/useTopRatedTv";
 import Loading from "../../../../common/Loading/Loading";
 import TvSlider from "../../../../common/TvSlider/TvSlider";
 
-const TopRatedTvSlide = ({ responsive }) => {
+const TopRatedTvSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = useTopRatedTvQuery();
 
     if (isLoading) {
@@ -20,7 +20,7 @@ const TopRatedTvSlide = ({ responsive }) => {
                 title="Top Rated"
                 tvShows={data.results}
                 responsive={responsive}
-                // onClick={onClick}
+                onClick={onClick}
             />
         </div>
     );

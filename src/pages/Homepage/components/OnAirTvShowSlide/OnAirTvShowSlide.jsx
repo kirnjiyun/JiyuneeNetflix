@@ -3,7 +3,7 @@ import { useTVontheAirQuery } from "../../../../hooks/useTVontheAir";
 import Loading from "../../../../common/Loading/Loading";
 import TvSlider from "../../../../common/TvSlider/TvSlider";
 
-const OnAirTvShowSlide = ({ responsive }) => {
+const OnAirTvShowSlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = useTVontheAirQuery();
 
     console.log("tv", data);
@@ -22,7 +22,7 @@ const OnAirTvShowSlide = ({ responsive }) => {
                 title="On Air"
                 tvShows={data.results}
                 responsive={responsive}
-                // onClick={onClick}
+                onClick={onClick}
             />
         </div>
     );
