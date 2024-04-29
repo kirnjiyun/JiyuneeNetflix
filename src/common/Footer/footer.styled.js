@@ -4,7 +4,7 @@ export const FooterContainer = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333333;
+    background-color: #767676;
     margin-top: 1rem;
     padding: 2rem 2rem;
 
@@ -20,4 +20,9 @@ export const FooterText = styled.p`
     @media (max-width: 768px) {
         font-size: 0.8rem;
     }
+`;
+export const Icon = styled.div`
+    margin-left: 2rem;
+    width: 2rem;
+    height: 2rem;
 `;
