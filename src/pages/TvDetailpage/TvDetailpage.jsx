@@ -1,47 +1,26 @@
-import React, { useState } from "react";
-import * as S from "./moviedetailpage.styled";
-import { useMovieDetailQuery } from "../../hooks/useMovieDetail";
-import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
-import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
-import { useMovieRecommendQuery } from "../../hooks/useMovieDetail";
-import { useMovieVideosQuery } from "../../hooks/useMovieDetail";
+import React from "react";
+import * as S from "./tvDetailpage.styled";
+import { useTvDetailQuery } from "../../hooks/useTvDetail";
+import { useTvDetailCastsQuery } from "../../hooks/useTvDetail";
 import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
-import ReviewSection from "./components/Reviews/ReviewSection";
-import RecommendSection from "./components/Recommendations/RecommendSection";
-import MovieModal from "./components/MovieModal/MovieModal";
 
-const MovieDetailPage = () => {
-    const [selectedSection, setSelectedSection] = useState("reviews");
-    const [showModal, setShowModal] = useState(false);
+const TvDetailPage = () => {
     const { id } = useParams();
-    const { data, isLoading, isError } = useMovieDetailQuery(id);
-    const { data: reviewData } = useMovieDetailReviewsQuery(id);
-    const { data: CreditsData } = useMovieDetailCastsQuery(id);
-    const { data: RecommendData } = useMovieRecommendQuery(id);
-    const { data: videosData } = useMovieVideosQuery(id);
-
-    const handleSectionClick = (section) => {
-        setSelectedSection(section);
-    };
-
-    const handleModalOpen = () => setShowModal(true);
-    const handleModalClose = () => setShowModal(false);
-    const handleModalClick = (event) => {
-        event.stopPropagation();
-    };
+    const { data, isLoading, isError } = useTvDetailQuery(id);
+    const { data: CreditsData } = useTvDetailCastsQuery(id);
 
     if (isLoading) {
         return <Loading />;
     }
 
     if (isError) {
-        return <div>Error occurred while fetching movie details.</div>;
+        return <div>Error occurred while fetching TV show details.</div>;
     }
 
     return (
-        <S.MovieDetailContainer>
-            <S.MovieContent>
+        <S.TvDetailContainer>
+            <S.TvContent>
                 <S.PosterContainer
                     style={{
                         backgroundImage:
@@ -49,18 +28,23 @@ const MovieDetailPage = () => {
                             `https://www.themoviedb.org/t/p/w500${data.poster_path}` +
                             ")",
                     }}
-                    onClick={handleModalOpen}
                 />
 
-                <S.MovieDetails>
-                    <S.Title>{data?.title}</S.Title>
-                    <S.GenreList>
+                <S.TvDetails>
+                    <S.Title>{data?.name}</S.Title>
+                    {/* <S.GenreList>
                         {data?.genres.map((genre) => (
                             <S.Genre key={genre.id}>{genre.name}</S.Genre>
                         ))}
-                    </S.GenreList>
+                    </S.GenreList> */}
                     <S.Synopsis>
-                        {data?.overview}
+                        {data?.overview ? (
+                            <>{data.overview}</>
+                        ) : (
+                            <S.NoOverview>
+                                There is no overview available.
+                            </S.NoOverview>
+                        )}
                         <S.TrailerMessage>
                             Click on the poster to watch the trailer
                         </S.TrailerMessage>
@@ -79,14 +63,22 @@ const MovieDetailPage = () => {
                             </S.CreditItem>
                         ))}
                     </S.Credits>
-                    <S.ReleaseDate>
-                        📍 Release Date : {data?.release_date}
-                    </S.ReleaseDate>
-                    <S.Runtime>⏰ RunTime : {data?.runtime} minutes</S.Runtime>
-                    <S.Vote> ⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
-                </S.MovieDetails>
-            </S.MovieContent>
-            <S.TitleContainer>
+                    <S.FirstAirDate>
+                        📍 First Air Date: {data?.first_air_date}
+                    </S.FirstAirDate>
+                    <S.LastAirDate>
+                        📍 Last Air Date: {data?.last_air_date}
+                    </S.LastAirDate>
+                    <S.Seasons>
+                        🎥 Number of Seasons: {data?.number_of_seasons}
+                    </S.Seasons>
+                    <S.Episodes>
+                        📺 Number of Episodes: {data?.number_of_episodes}
+                    </S.Episodes>
+                    <S.Vote>⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
+                </S.TvDetails>
+            </S.TvContent>
+            {/* <S.TitleContainer>
                 <S.ReviewTitle
                     onClick={() => handleSectionClick("reviews")}
                     isSelected={selectedSection === "reviews"}
@@ -97,7 +89,7 @@ const MovieDetailPage = () => {
                     onClick={() => handleSectionClick("recommendations")}
                     isSelected={selectedSection === "recommendations"}
                 >
-                    🎞️ Recommended movies
+                    📺 Recommended TV Shows
                 </S.RecommendTitle>
             </S.TitleContainer>
             {selectedSection === "reviews" && (
@@ -108,15 +100,15 @@ const MovieDetailPage = () => {
             )}
 
             {showModal && <S.Overlay onClick={handleModalClose} />}
-            <MovieModal
+            <TvModal
                 show={showModal}
                 onHide={handleModalClose}
-                title={data?.title}
+                title={data?.name}
                 videosData={videosData}
                 onClick={handleModalClick}
-            />
-        </S.MovieDetailContainer>
+            /> */}
+        </S.TvDetailContainer>
     );
 };
 
-export default MovieDetailPage;
+export default TvDetailPage;

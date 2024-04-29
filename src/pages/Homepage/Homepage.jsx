@@ -15,20 +15,29 @@ import TopRatedTvSlide from "./components/TopRatedTvSlide/TopRatedTvSlide";
 const Homepage = () => {
     const navigate = useNavigate();
 
-    const handleClick = (movie) => {
+    const handleMClick = (movie) => {
         navigate(`/movies/${movie.id}`);
+    };
+    const handleTvClick = (tv) => {
+        navigate(`/tv/${tv.id}`);
     };
 
     return (
         <S.HomepageContainer>
             <Banner />
-            <PopularMovieSlide responsive={responsive} onClick={handleClick} />
-            <TopRatedMovieSlide responsive={responsive} onClick={handleClick} />
-            <UpcomingMovieSlide responsive={responsive} onClick={handleClick} />
-            <AiringTodaySlide responsive={responsive} />
-            <OnAirTvShowSlide responsive={responsive} />
-            <PopularTvSlide responsive={responsive} />
-            <TopRatedTvSlide responsive={responsive} />
+            <PopularMovieSlide responsive={responsive} onClick={handleMClick} />
+            <TopRatedMovieSlide
+                responsive={responsive}
+                onClick={handleMClick}
+            />
+            <UpcomingMovieSlide
+                responsive={responsive}
+                onClick={handleMClick}
+            />
+            <AiringTodaySlide responsive={responsive} onClick={handleTvClick} />
+            <OnAirTvShowSlide responsive={responsive} onClick={handleTvClick} />
+            <PopularTvSlide responsive={responsive} onClick={handleTvClick} />
+            <TopRatedTvSlide responsive={responsive} onClick={handleTvClick} />
         </S.HomepageContainer>
     );
 };

@@ -1,13 +1,18 @@
 import React from "react";
 import * as S from "./tvCard.styled.js";
 
-const TVCard = ({ tv }) => {
+const TVCard = ({ tv, onClick }) => {
     const backdropUrl = tv.backdrop_path
         ? `https://image.tmdb.org/t/p/w1280${tv.backdrop_path}`
         : "https://via.placeholder.com/1280x720?text=No+Backdrop";
-
+    const handleClick = () => {
+        onClick(tv);
+    };
     return (
-        <S.TVCardContainer style={{ backgroundImage: `url(${backdropUrl})` }}>
+        <S.TVCardContainer
+            style={{ backgroundImage: `url(${backdropUrl})` }}
+            onClick={handleClick}
+        >
             <S.TVCard>
                 <S.Title>{tv.name}</S.Title>
                 <div>

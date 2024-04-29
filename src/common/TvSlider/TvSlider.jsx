@@ -2,7 +2,7 @@ import * as S from "./tvSlider.styled";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import TVCard from "../TVCard/TVCard";
-const TvSlider = ({ responsive, tvShows, title }) => {
+const TvSlider = ({ responsive, tvShows, title, onClick }) => {
     return (
         <S.CarouselContainer>
             <S.Title> 📺 {title}</S.Title>
@@ -16,7 +16,7 @@ const TvSlider = ({ responsive, tvShows, title }) => {
                 autoPlaySpeed={3000}
             >
                 {tvShows.map((tv, i) => (
-                    <TVCard tv={tv} key={i} />
+                    <TVCard tv={tv} key={i} onClick={onClick} />
                 ))}
             </Carousel>
         </S.CarouselContainer>

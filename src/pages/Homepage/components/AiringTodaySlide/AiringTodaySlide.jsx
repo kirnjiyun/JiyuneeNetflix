@@ -1,8 +1,7 @@
-import React from "react";
 import Loading from "../../../../common/Loading/Loading";
 import TvSlider from "../../../../common/TvSlider/TvSlider";
 import { useAiringTodayQuery } from "../../../../hooks/useAiringToday";
-const AiringTodaySlide = ({ responsive }) => {
+const AiringTodaySlide = ({ responsive, onClick }) => {
     const { data, isLoading, isError, error } = useAiringTodayQuery();
 
     if (isLoading) {
@@ -19,7 +18,7 @@ const AiringTodaySlide = ({ responsive }) => {
                 title="Airing Today"
                 tvShows={data.results}
                 responsive={responsive}
-                // onClick={onClick}
+                onClick={onClick}
             />
         </div>
     );
