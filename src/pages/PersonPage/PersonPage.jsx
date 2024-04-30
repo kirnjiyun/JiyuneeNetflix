@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { usePopularPeopleQuery } from "../../hooks/usePeopleList";
 import Loading from "../../common/Loading/Loading";
 import * as S from "./personPage.styled.js";
 import PersonCard from "./components/PersonCard/PersonCard.jsx";
-
-
-export default const Personpage = () => {
-    const { data, isLoading, isError, error } = usePopularPeopleQuery();
+import Pagination from "./components/pagination/Pagination";
+const PersonPage = () => {
+    const [page, setPage] = useState(1);
+    const ClickPage = (selected) => {
+        setPage(selected);
+    };
+    const { data, isLoading, isError, error } = usePopularPeopleQuery(page);
 
     if (isLoading) {
         return (
@@ -26,12 +29,19 @@ export default const Personpage = () => {
 
     return (
         <S.Container>
-            <h1>Popular People</h1>
             <S.PeopleList>
                 {data.results.map((person) => (
                     <PersonCard key={person.id} person={person} />
                 ))}
             </S.PeopleList>
+            <S.PagenationWrap>
+                <Pagination
+                    totalPages={data?.total_pages}
+                    currentPage={page}
+                    onPageChange={ClickPage}
+                />
+            </S.PagenationWrap>
         </S.Container>
     );
 };
+export default PersonPage;
