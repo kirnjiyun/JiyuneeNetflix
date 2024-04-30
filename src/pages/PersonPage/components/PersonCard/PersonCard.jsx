@@ -1,11 +1,13 @@
 import React from "react";
 import * as S from "./personCard.styled";
 
-export default function PersonCard({ person }) {
+export default function PersonCard({ person, onClick }) {
     const gender = person.gender === 1 ? "Female" : "Male";
-
+    const handleClick = () => {
+        onClick(person);
+    };
     return (
-        <S.PersonItem>
+        <S.PersonItem onClick={handleClick}>
             {person.profile_path && (
                 <S.ImageContainer>
                     <S.PersonImage

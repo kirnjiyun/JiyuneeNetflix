@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { usePopularPeopleQuery } from "../../hooks/usePeopleList";
 import Loading from "../../common/Loading/Loading";
 import * as S from "./personPage.styled.js";
@@ -6,10 +7,16 @@ import PersonCard from "./components/PersonCard/PersonCard.jsx";
 import Pagination from "./components/pagination/Pagination";
 const PersonPage = () => {
     const [page, setPage] = useState(1);
+    const navigate = useNavigate();
     const ClickPage = (selected) => {
         setPage(selected);
     };
     const { data, isLoading, isError, error } = usePopularPeopleQuery(page);
+
+    const ClickCard = (person) => {
+        navigate(`/person/${person.id}`);
+        window.scrollTo(0, 0);
+    };
 
     if (isLoading) {
         return (
@@ -31,7 +38,11 @@ const PersonPage = () => {
         <S.Container>
             <S.PeopleList>
                 {data.results.map((person) => (
-                    <PersonCard key={person.id} person={person} />
+                    <PersonCard
+                        key={person.id}
+                        person={person}
+                        onClick={ClickCard}
+                    />
                 ))}
             </S.PeopleList>
             <S.PagenationWrap>
