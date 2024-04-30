@@ -1,15 +1,18 @@
 import styled from "styled-components";
+
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
 `;
+
 export const TvspageContainer = styled.div`
     margin: 0 20px;
     display: grid;
     grid-template-columns: 25% 1fr;
     grid-template-rows: auto auto;
     gap: 20px;
+
     @media (max-width: 768px) {
         grid-template-columns: 1fr;
     }
@@ -20,6 +23,16 @@ export const FilterContainer = styled.div`
     flex-direction: column;
 
     @media (max-width: 768px) {
+        position: fixed;
+        top: 0;
+        left: ${({ isOpen }) => (isOpen ? "0" : "-100%")};
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 100;
+        transition: left 0.3s ease-in-out;
+        padding: 1rem;
+        overflow-y: auto;
         margin-bottom: 20px;
     }
 `;
@@ -37,6 +50,7 @@ export const TvsContainer = styled.div`
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     }
 `;
+
 export const PagenationWrap = styled.div`
     grid-column: 1 / -1;
     display: flex;
@@ -66,11 +80,13 @@ export const PagenationWrap = styled.div`
         padding: 0 4px;
         border: 1px solid rgba(0, 0, 0, 0.2);
         border-radius: 3px;
+
         &:hover {
             color: white;
             background-color: #dc1a28;
         }
     }
+
     .active {
         color: white;
         background-color: #dc1a28;
@@ -81,12 +97,12 @@ export const PagenationWrap = styled.div`
         justify-content: center;
         align-items: center;
     }
+
     .break {
         height: 27px;
         display: flex;
         justify-content: center;
         align-items: center;
-
         border-radius: 3px;
         margin-right: 4px;
         padding: 0px 8px 0px 8px;
@@ -116,6 +132,7 @@ export const NoResultsMessage = styled.p`
     color: #777;
     text-align: center;
 `;
+
 export const GoBackButton = styled.button`
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -128,4 +145,42 @@ export const GoBackButton = styled.button`
     &:hover {
         background-color: #b91622;
     }
+`;
+
+export const FilterButton = styled.button`
+    display: none;
+    padding: 0.5rem 1rem;
+    background-color: #333333;
+    color: #ca1723;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px black;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+        display: block;
+        margin-bottom: 1rem;
+    }
+`;
+
+export const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+`;
+
+export const ModalContent = styled.div`
+    border-radius: 4px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
 `;

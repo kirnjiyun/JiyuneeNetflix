@@ -21,7 +21,7 @@ export const Label = styled.label`
 `;
 
 export const Select = styled.select`
-    width: 100%;
+    width: 240px;
     padding: 0.5rem;
     border: none;
     border-radius: 4px;

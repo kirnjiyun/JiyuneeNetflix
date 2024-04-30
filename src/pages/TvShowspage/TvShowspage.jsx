@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import TVCard from "../../common/TVCard/TVCard";
 import Loading from "../../common/Loading/Loading";
 import * as S from "./tvShowspage.styled";
-import FilterandSort from "../Moviespage/components/filterandSort/FilterandSort";
+import FilterandSort from "./components/filterandSort/FilterandSort";
 import { useSearchTVQuery } from "../../hooks/useSearchTv";
 import Pagination from "./components/pagination/Pagination";
 
@@ -14,7 +14,17 @@ const TvShowspage = () => {
     const [page, setPage] = useState(1);
     const [selectedGenre, setSelectedGenre] = useState("all");
     const [selectedSort, setSelectedSort] = useState("");
+    const [selectedOriginCountry, setSelectedOriginCountry] = useState("all");
     const [filteredResults, setFilteredResults] = useState([]);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+    const openFilter = () => {
+        setIsFilterOpen(true);
+    };
+
+    const closeFilter = () => {
+        setIsFilterOpen(false);
+    };
 
     const ClickPage = (selected) => {
         setPage(selected);
@@ -29,13 +39,16 @@ const TvShowspage = () => {
         keyword,
         page,
     });
-
     const handleGenreChange = (genre) => {
         setSelectedGenre(genre);
     };
 
     const handleSortChange = (sort) => {
         setSelectedSort(sort);
+    };
+
+    const handleOriginCountryChange = (originCountry) => {
+        setSelectedOriginCountry(originCountry);
     };
 
     useEffect(() => {
@@ -54,9 +67,15 @@ const TvShowspage = () => {
                 filtered = filtered.sort((a, b) => b.popularity - a.popularity);
             }
 
+            if (selectedOriginCountry !== "all") {
+                filtered = filtered.filter((tv) =>
+                    tv.origin_country.includes(selectedOriginCountry)
+                );
+            }
+
             setFilteredResults(filtered);
         }
-    }, [data, selectedGenre, selectedSort, page]);
+    }, [data, selectedGenre, selectedSort, selectedOriginCountry, page]);
 
     console.log(data?.results);
 
@@ -83,10 +102,18 @@ const TvShowspage = () => {
                             <FilterandSort
                                 onGenreChange={handleGenreChange}
                                 onSortChange={handleSortChange}
+                                onOriginCountryChange={
+                                    handleOriginCountryChange
+                                }
                                 selectedGenre={selectedGenre}
                                 selectedSort={selectedSort}
+                                selectedOriginCountry={selectedOriginCountry}
+                                onClose={closeFilter}
                             />
                         </S.FilterContainer>
+                        <S.FilterButton onClick={openFilter}>
+                            Filter and Sort
+                        </S.FilterButton>
                         <S.TvsContainer>
                             {filteredResults.map((tv) => (
                                 <TVCard
@@ -112,6 +139,21 @@ const TvShowspage = () => {
                     </S.NoResultsMessage>
                     <S.GoBackButton onClick={goBack}>Go Back</S.GoBackButton>
                 </S.NoResultsContainer>
+            )}
+            {isFilterOpen && (
+                <S.ModalOverlay onClick={closeFilter}>
+                    <S.ModalContent onClick={(e) => e.stopPropagation()}>
+                        <FilterandSort
+                            onGenreChange={handleGenreChange}
+                            onSortChange={handleSortChange}
+                            onOriginCountryChange={handleOriginCountryChange}
+                            selectedGenre={selectedGenre}
+                            selectedSort={selectedSort}
+                            selectedOriginCountry={selectedOriginCountry}
+                            onClose={closeFilter}
+                        />
+                    </S.ModalContent>
+                </S.ModalOverlay>
             )}
         </S.Container>
     );
