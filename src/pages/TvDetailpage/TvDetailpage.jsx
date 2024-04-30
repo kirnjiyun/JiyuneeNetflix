@@ -1,14 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./tvDetailpage.styled";
 import { useTvDetailQuery } from "../../hooks/useTvDetail";
 import { useTvDetailCastsQuery } from "../../hooks/useTvDetail";
+import { useTvDetailReviewsQuery } from "../../hooks/useTvDetail";
+import { useTvRecommendQuery } from "../../hooks/useTvDetail";
+import { useTvVideosQuery } from "../../hooks/useTvDetail";
 import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
-
+import RecommendSection from "../../pages/TvDetailpage/components/Recommendations/RecommendationPart";
+import ReviewSection from "./components/Reviews/ReviewSection";
+import MovieModal from "../../pages/MovieDetailpage/components/MovieModal/MovieModal";
 const TvDetailPage = () => {
     const { id } = useParams();
+    const [selectedSection, setSelectedSection] = useState("reviews");
+    const [showModal, setShowModal] = useState(false);
     const { data, isLoading, isError } = useTvDetailQuery(id);
     const { data: CreditsData } = useTvDetailCastsQuery(id);
+    const { data: reviewData } = useTvDetailReviewsQuery(id);
+    const { data: RecommendData } = useTvRecommendQuery(id);
+    const { data: videosData } = useTvVideosQuery(id);
+    const handleSectionClick = (section) => {
+        setSelectedSection(section);
+    };
+
+    const handleModalOpen = () => setShowModal(true);
+    const handleModalClose = () => setShowModal(false);
+    const handleModalClick = (event) => {
+        event.stopPropagation();
+    };
 
     if (isLoading) {
         return <Loading />;
@@ -28,15 +47,16 @@ const TvDetailPage = () => {
                             `https://www.themoviedb.org/t/p/w500${data.poster_path}` +
                             ")",
                     }}
+                    onClick={handleModalOpen}
                 />
 
                 <S.TvDetails>
                     <S.Title>{data?.name}</S.Title>
-                    {/* <S.GenreList>
+                    <S.GenreList>
                         {data?.genres.map((genre) => (
                             <S.Genre key={genre.id}>{genre.name}</S.Genre>
                         ))}
-                    </S.GenreList> */}
+                    </S.GenreList>
                     <S.Synopsis>
                         {data?.overview ? (
                             <>{data.overview}</>
@@ -78,7 +98,7 @@ const TvDetailPage = () => {
                     <S.Vote>⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
                 </S.TvDetails>
             </S.TvContent>
-            {/* <S.TitleContainer>
+            <S.TitleContainer>
                 <S.ReviewTitle
                     onClick={() => handleSectionClick("reviews")}
                     isSelected={selectedSection === "reviews"}
@@ -98,15 +118,14 @@ const TvDetailPage = () => {
             {selectedSection === "recommendations" && (
                 <RecommendSection recommendData={RecommendData} />
             )}
-
             {showModal && <S.Overlay onClick={handleModalClose} />}
-            <TvModal
+            <MovieModal
                 show={showModal}
                 onHide={handleModalClose}
                 title={data?.name}
                 videosData={videosData}
                 onClick={handleModalClick}
-            /> */}
+            />
         </S.TvDetailContainer>
     );
 };

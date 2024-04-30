@@ -50,7 +50,7 @@ export const Title = styled.h2`
     white-space: nowrap;
 `;
 
-export const Genre = styled.p`
+export const Country = styled.p`
     font-size: 0.6rem;
     overflow: hidden;
     text-overflow: ellipsis;

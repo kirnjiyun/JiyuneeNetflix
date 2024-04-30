@@ -15,6 +15,7 @@ const TVCard = ({ tv, onClick }) => {
         >
             <S.TVCard>
                 <S.Title>{tv.name}</S.Title>
+                <S.Country>{tv.origin_country}</S.Country>
                 <div>
                     <S.Vote>★ {tv.vote_average.toFixed(1)}</S.Vote>
                     {tv.adult ? <S.Adult>18+</S.Adult> : null}
