@@ -6,14 +6,12 @@ export const AppLayout = styled.div`
     flex-direction: column;
     min-height: 100vh;
 `;
-
 export const Navbar = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 2rem 2rem;
-    background-color: #000;
-
+    background-color: black;
     @media (max-width: 768px) {
         flex-direction: column;
         padding: 1rem;
@@ -22,18 +20,29 @@ export const Navbar = styled.nav`
 
 export const Logo = styled.img`
     height: 2rem;
-
+    margin-right: 1.5rem;
     @media (max-width: 768px) {
         margin-bottom: 1rem;
+        margin-right: 0;
+    }
+`;
+
+export const LeftSection = styled.div`
+    display: flex;
+    align-items: center;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        width: 100%;
     }
 `;
 
 export const NavLinks = styled.div`
     display: flex;
     align-items: center;
-
     @media (max-width: 768px) {
+        display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
         flex-direction: column;
+        width: 100%;
         margin-top: 1rem;
     }
 `;
@@ -44,7 +53,6 @@ export const NavLink = styled(Link)`
     margin-left: 1.5rem;
     font-size: 1rem;
     font-weight: 500;
-
     @media (max-width: 768px) {
         margin: 0.5rem 0;
     }
@@ -102,4 +110,23 @@ export const SearchIcon = styled.button`
     &:hover svg path {
         stroke: #dc1a28;
     }
+`;
+export const HamburgerMenu = styled.div`
+    display: none;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+`;
+
+export const Bar = styled.span`
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background-color: #fff;
 `;

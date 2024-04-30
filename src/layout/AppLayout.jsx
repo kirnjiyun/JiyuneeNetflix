@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Footer from "../common/Footer/Footer";
 const AppLayout = () => {
     const [keyword, setKeyword] = useState("");
+    const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
 
     const searchByKeyword = (e) => {
@@ -13,17 +14,30 @@ const AppLayout = () => {
         navigate(`/movies?q=${keyword}`);
         setKeyword("");
     };
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
 
     return (
         <S.AppLayout>
             <S.Navbar>
-                <S.NavLinks>
+                <S.LeftSection>
                     <Link to="/">
                         <S.Logo src={logo} alt="Yunflix Logo" />
                     </Link>
-                    <S.NavLink to="/">Home</S.NavLink>
-                    <S.NavLink to="/movies">Movies</S.NavLink>
-                </S.NavLinks>
+                    <S.HamburgerMenu onClick={toggleMenu}>
+                        <S.Bar></S.Bar>
+                        <S.Bar></S.Bar>
+                        <S.Bar></S.Bar>
+                    </S.HamburgerMenu>
+                    <S.NavLinks isOpen={isOpen}>
+                        <S.NavLink to="/">Home</S.NavLink>
+                        <S.NavLink to="/movies">Movies</S.NavLink>
+                        <S.NavLink to="/tv">Tv Show</S.NavLink>
+                        <S.NavLink to="/person">Person</S.NavLink>
+                    </S.NavLinks>
+                </S.LeftSection>
+
                 <S.SearchContainer onSubmit={searchByKeyword}>
                     <S.SearchInput
                         type="text"
