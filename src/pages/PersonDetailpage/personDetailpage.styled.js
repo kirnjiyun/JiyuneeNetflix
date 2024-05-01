@@ -1,7 +1,7 @@
 import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: 2rem;
     padding: 10px 150px;
     @media (max-width: 768px) {
@@ -10,6 +10,11 @@ export const Container = styled.div`
     }
 `;
 
+export const AboutContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+`;
 export const ImageContainer = styled.div`
     width: 33.33%;
     padding-right: 10px;
@@ -47,8 +52,6 @@ export const Biography = styled.p`
     border: 1px solid white;
     border-radius: 8px;
     padding: 0.5rem;
-
-    /* 3줄까지 보이고 더 길면 "더보기" 버튼으로 확장 가능 */
     display: -webkit-box;
     -webkit-line-clamp: ${({ isExpanded }) => (isExpanded ? "unset" : "3")};
     -webkit-box-orient: vertical;
@@ -69,3 +72,33 @@ export const Label = styled.span`
 `;
 
 export const Value = styled.span``;
+
+export const TitleContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    border-top: 1px solid white;
+    padding: 10px 0;
+    @media (max-width: 768px) {
+        flex-direction: column;
+        gap: 10px;
+    }
+`;
+
+export const MovieTitle = styled.h2`
+    cursor: pointer;
+    color: ${({ isSelected }) => (isSelected ? "#dc1a28" : "white")};
+    flex-wrap: nowrap;
+    font-size: 1rem;
+`;
+
+export const TvShowTitle = styled(MovieTitle)``;
+
+export const TrailerMessage = styled.p`
+    margin-top: 5px;
+    font-size: 12px;
+    color: #888;
+`;
