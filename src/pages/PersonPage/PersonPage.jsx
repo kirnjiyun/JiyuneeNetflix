@@ -37,7 +37,7 @@ const PersonPage = () => {
     return (
         <S.Container>
             <S.PeopleList>
-                {data.results.map((person) => (
+                {data?.results?.map((person) => (
                     <PersonCard
                         key={person.id}
                         person={person}

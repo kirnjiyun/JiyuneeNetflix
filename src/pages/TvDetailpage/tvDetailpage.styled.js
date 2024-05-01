@@ -102,6 +102,7 @@ export const Credits = styled.ul`
 `;
 
 export const CreditItem = styled.li`
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;

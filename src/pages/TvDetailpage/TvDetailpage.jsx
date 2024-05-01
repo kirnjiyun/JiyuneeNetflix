@@ -5,12 +5,13 @@ import { useTvDetailCastsQuery } from "../../hooks/useTvDetail";
 import { useTvDetailReviewsQuery } from "../../hooks/useTvDetail";
 import { useTvRecommendQuery } from "../../hooks/useTvDetail";
 import { useTvVideosQuery } from "../../hooks/useTvDetail";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import RecommendSection from "../../pages/TvDetailpage/components/Recommendations/RecommendationPart";
 import ReviewSection from "./components/Reviews/ReviewSection";
 import MovieModal from "../../pages/MovieDetailpage/components/MovieModal/MovieModal";
 const TvDetailPage = () => {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [selectedSection, setSelectedSection] = useState("reviews");
     const [showModal, setShowModal] = useState(false);
@@ -22,7 +23,9 @@ const TvDetailPage = () => {
     const handleSectionClick = (section) => {
         setSelectedSection(section);
     };
-
+    const handleClick = (id) => {
+        navigate(`/person/${id}`);
+    };
     const handleModalOpen = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
     const handleModalClick = (event) => {
@@ -71,7 +74,10 @@ const TvDetailPage = () => {
                     </S.Synopsis>
                     <S.Credits>
                         {CreditsData?.cast?.slice(0, 6).map((cast) => (
-                            <S.CreditItem key={cast.id}>
+                            <S.CreditItem
+                                key={cast.id}
+                                onClick={() => handleClick(cast.id)}
+                            >
                                 <S.CreditImage
                                     src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
                                     alt={cast.name}

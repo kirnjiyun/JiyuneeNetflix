@@ -5,7 +5,7 @@ import { useMovieDetailReviewsQuery } from "../../hooks/useMovieDetail";
 import { useMovieDetailCastsQuery } from "../../hooks/useMovieDetail";
 import { useMovieRecommendQuery } from "../../hooks/useMovieDetail";
 import { useMovieVideosQuery } from "../../hooks/useMovieDetail";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import ReviewSection from "./components/Reviews/ReviewSection";
 import RecommendSection from "./components/Recommendations/RecommendSection";
@@ -29,6 +29,10 @@ const MovieDetailPage = () => {
     const handleModalClose = () => setShowModal(false);
     const handleModalClick = (event) => {
         event.stopPropagation();
+    };
+    const navigate = useNavigate();
+    const handleClick = (id) => {
+        navigate(`/person/${id}`);
     };
 
     if (isLoading) {
@@ -67,7 +71,10 @@ const MovieDetailPage = () => {
                     </S.Synopsis>
                     <S.Credits>
                         {CreditsData?.cast?.slice(0, 6).map((cast) => (
-                            <S.CreditItem key={cast.id}>
+                            <S.CreditItem
+                                key={cast.id}
+                                onClick={() => handleClick(cast.id)}
+                            >
                                 <S.CreditImage
                                     src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
                                     alt={cast.name}

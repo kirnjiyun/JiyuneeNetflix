@@ -45,7 +45,7 @@ export default function PersonDetailPage() {
                         isExpanded={isBiographyExpanded}
                         onClick={toggleBiographyExpansion}
                     >
-                        {data.biography}
+                        {data.biography ? data.biography : "No Biography"}
                     </S.Biography>
                     <S.Info>
                         <S.Label>Known For:</S.Label>

@@ -103,6 +103,7 @@ export const Credits = styled.ul`
 
 export const CreditItem = styled.li`
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     align-items: center;
     margin-right: 1rem;
