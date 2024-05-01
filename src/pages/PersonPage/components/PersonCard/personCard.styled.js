@@ -5,7 +5,8 @@ export const PersonItem = styled.li`
     flex-direction: row;
     margin-bottom: 40px;
     border: 1px solid white;
-    min-width: 450px;
+    min-width: 400px;
+    overflow: hidden;
     height: 300px;
     align-items: flex-start;
     border-radius: 8px;
@@ -13,7 +14,7 @@ export const PersonItem = styled.li`
     padding: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-
+    justify-content: center;
     &:hover {
         background-color: rgba(255, 255, 255, 0.2);
     }
@@ -81,10 +82,10 @@ export const KnownForItem = styled.li`
 `;
 
 export const WorkTitle = styled.strong`
-    font-size: 18px;
+    font-size: 14px;
 
     @media (max-width: 768px) {
-        font-size: 16px;
+        font-size: 12px;
     }
 `;
 
@@ -106,5 +107,6 @@ export const GenderAndDepartment = styled.div`
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 10px;
+    margin-top: 5px;
+    justify-content: center;
 `;
