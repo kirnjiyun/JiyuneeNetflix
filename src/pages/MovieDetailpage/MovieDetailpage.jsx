@@ -30,15 +30,29 @@ const MovieDetailPage = () => {
     const handleModalClick = (event) => {
         event.stopPropagation();
     };
-    const navigate = useNavigate();
+    const [loadingStates, setLoadingStates] = useState({});
+
     const handleClick = (id) => {
-        navigate(`/person/${id}`);
+        setLoadingStates((prevState) => ({
+            ...prevState,
+            [id]: true,
+        }));
+        setTimeout(() => {
+            navigate(`/person/${id}`);
+            setLoadingStates((prevState) => ({
+                ...prevState,
+                [id]: false,
+            }));
+        }, 1000);
     };
-
+    const navigate = useNavigate();
     if (isLoading) {
-        return <Loading />;
+        return (
+            <>
+                <Loading />
+            </>
+        );
     }
-
     if (isError) {
         return <div>Error occurred while fetching movie details.</div>;
     }
@@ -69,23 +83,35 @@ const MovieDetailPage = () => {
                             Click on the poster to watch the trailer
                         </S.TrailerMessage>
                     </S.Synopsis>
-                    <S.Credits>
-                        {CreditsData?.cast?.slice(0, 6).map((cast) => (
-                            <S.CreditItem
-                                key={cast.id}
-                                onClick={() => handleClick(cast.id)}
-                            >
-                                <S.CreditImage
-                                    src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
-                                    alt={cast.name}
-                                />
-                                <S.CreditName>{cast.name}</S.CreditName>
-                                <S.CreditCharacter>
-                                    {cast.character}
-                                </S.CreditCharacter>
-                            </S.CreditItem>
-                        ))}
-                    </S.Credits>
+                    {CreditsData ? (
+                        <S.Credits>
+                            {CreditsData.cast.slice(0, 6).map((cast) => (
+                                <S.CreditItem
+                                    key={cast.id}
+                                    onClick={() => handleClick(cast.id)}
+                                >
+                                    {loadingStates[cast.id] ? (
+                                        <Loading />
+                                    ) : (
+                                        <>
+                                            <S.CreditImage
+                                                src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
+                                                alt={cast.name}
+                                            />
+                                            <S.CreditName>
+                                                {cast.name}
+                                            </S.CreditName>
+                                            <S.CreditCharacter>
+                                                {cast.character}
+                                            </S.CreditCharacter>
+                                        </>
+                                    )}
+                                </S.CreditItem>
+                            ))}
+                        </S.Credits>
+                    ) : (
+                        <Loading />
+                    )}
                     <S.ReleaseDate>
                         📍 Release Date : {data?.release_date}
                     </S.ReleaseDate>

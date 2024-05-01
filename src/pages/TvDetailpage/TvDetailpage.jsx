@@ -23,8 +23,20 @@ const TvDetailPage = () => {
     const handleSectionClick = (section) => {
         setSelectedSection(section);
     };
+    const [loadingStates, setLoadingStates] = useState({});
+
     const handleClick = (id) => {
-        navigate(`/person/${id}`);
+        setLoadingStates((prevState) => ({
+            ...prevState,
+            [id]: true,
+        }));
+        setTimeout(() => {
+            navigate(`/person/${id}`);
+            setLoadingStates((prevState) => ({
+                ...prevState,
+                [id]: false,
+            }));
+        }, 1000);
     };
     const handleModalOpen = () => setShowModal(true);
     const handleModalClose = () => setShowModal(false);
@@ -73,21 +85,33 @@ const TvDetailPage = () => {
                         </S.TrailerMessage>
                     </S.Synopsis>
                     <S.Credits>
-                        {CreditsData?.cast?.slice(0, 6).map((cast) => (
-                            <S.CreditItem
-                                key={cast.id}
-                                onClick={() => handleClick(cast.id)}
-                            >
-                                <S.CreditImage
-                                    src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
-                                    alt={cast.name}
-                                />
-                                <S.CreditName>{cast.name}</S.CreditName>
-                                <S.CreditCharacter>
-                                    {cast.character}
-                                </S.CreditCharacter>
-                            </S.CreditItem>
-                        ))}
+                        {CreditsData && CreditsData.cast ? (
+                            CreditsData.cast.slice(0, 6).map((cast) => (
+                                <S.CreditItem
+                                    key={cast.id}
+                                    onClick={() => handleClick(cast.id)}
+                                >
+                                    {loadingStates[cast.id] ? (
+                                        <Loading />
+                                    ) : (
+                                        <>
+                                            <S.CreditImage
+                                                src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
+                                                alt={cast.name}
+                                            />
+                                            <S.CreditName>
+                                                {cast.name}
+                                            </S.CreditName>
+                                            <S.CreditCharacter>
+                                                {cast.character}
+                                            </S.CreditCharacter>
+                                        </>
+                                    )}
+                                </S.CreditItem>
+                            ))
+                        ) : (
+                            <Loading />
+                        )}
                     </S.Credits>
                     <S.FirstAirDate>
                         📍 First Air Date: {data?.first_air_date}
