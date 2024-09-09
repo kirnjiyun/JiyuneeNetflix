@@ -4,18 +4,26 @@ import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import Footer from "../common/Footer/Footer";
+
 const AppLayout = () => {
     const [keyword, setKeyword] = useState("");
     const [isOpen, setIsOpen] = useState(false);
+    const [dropdownValue, setDropdownValue] = useState("all");
     const navigate = useNavigate();
 
     const searchByKeyword = (e) => {
         e.preventDefault();
-        navigate(`/movies?q=${keyword}`);
+        const searchPath = dropdownValue === "all" ? "multi" : dropdownValue;
+        navigate(`/${searchPath}?q=${keyword}`);
         setKeyword("");
     };
+
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    };
+
+    const handleDropdownChange = (e) => {
+        setDropdownValue(e.target.value);
     };
 
     return (
@@ -33,12 +41,21 @@ const AppLayout = () => {
                     <S.NavLinks isOpen={isOpen}>
                         <S.NavLink to="/">Home</S.NavLink>
                         <S.NavLink to="/movies">Movies</S.NavLink>
-                        <S.NavLink to="/tv">Tv Show</S.NavLink>
-                        <S.NavLink to="/person">Person</S.NavLink>
+                        <S.NavLink to="/tv">Tv Shows</S.NavLink>
+                        <S.NavLink to="/person">People</S.NavLink>
                     </S.NavLinks>
                 </S.LeftSection>
 
                 <S.SearchContainer onSubmit={searchByKeyword}>
+                    <S.Dropdown
+                        value={dropdownValue}
+                        onChange={handleDropdownChange}
+                    >
+                        <option value="all">All</option>
+                        <option value="movies">Movies</option>
+                        <option value="tv">TV Shows</option>
+                        <option value="person">People</option>
+                    </S.Dropdown>
                     <S.SearchInput
                         type="text"
                         placeholder="Search"

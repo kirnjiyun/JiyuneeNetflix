@@ -26,11 +26,11 @@ const Homepage = () => {
         <S.HomepageContainer>
             <Banner />
             <PopularMovieSlide responsive={responsive} onClick={handleMClick} />
-            <TopRatedMovieSlide
+            <UpcomingMovieSlide
                 responsive={responsive}
                 onClick={handleMClick}
-            />
-            <UpcomingMovieSlide
+            />{" "}
+            <TopRatedMovieSlide
                 responsive={responsive}
                 onClick={handleMClick}
             />

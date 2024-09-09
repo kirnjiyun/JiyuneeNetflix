@@ -130,3 +130,17 @@ export const Bar = styled.span`
     margin: 5px auto;
     background-color: #fff;
 `;
+export const Dropdown = styled.select`
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    margin-right: 10px;
+    outline: none;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+`;

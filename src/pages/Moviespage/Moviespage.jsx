@@ -20,11 +20,12 @@ const Moviespage = () => {
         setPage(selected);
     };
 
-    const ClickCard = (movie) => {
-        navigate(`/movies/${movie.id}`);
+    const ClickCard = (item) => {
+        navigate(`/movie/${item.id}`);
         window.scrollTo(0, 0);
     };
 
+    // Revert to movie-specific search hook
     const { data, isLoading, isError, error } = useSearchMovieQuery({
         keyword,
         page,
@@ -42,9 +43,10 @@ const Moviespage = () => {
         if (data?.results) {
             let filtered = data.results;
 
+            // Genre filter applies to movies only
             if (selectedGenre !== "all") {
-                filtered = filtered.filter((movie) =>
-                    movie.genre_ids.includes(parseInt(selectedGenre))
+                filtered = filtered.filter((item) =>
+                    item.genre_ids.includes(parseInt(selectedGenre))
                 );
             }
 
@@ -88,11 +90,11 @@ const Moviespage = () => {
                             />
                         </S.FilterContainer>
                         <S.MoviesContainer>
-                            {filteredResults.map((movie) => (
+                            {filteredResults.map((item) => (
                                 <MovieCard
                                     onClick={ClickCard}
-                                    key={movie.id}
-                                    movie={movie}
+                                    key={item.id}
+                                    movie={item}
                                 />
                             ))}
                         </S.MoviesContainer>

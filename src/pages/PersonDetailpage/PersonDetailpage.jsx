@@ -79,7 +79,7 @@ export default function PersonDetailPage() {
                     onClick={() => handleSectionClick("TvShow")}
                     isSelected={selectedSection === "TvShow"}
                 >
-                    📺Tv Show
+                    📺Tv Shows
                 </S.TvShowTitle>
             </S.TitleContainer>
             {selectedSection === "movie" && (
