@@ -7,12 +7,15 @@ import MovieCredits from "./components/MovieCredits/MovieCredits";
 import TvCredits from "./components/TvCredits/TvCredits";
 import { usePersonMovieQuery } from "../../hooks/usePersonDetail";
 import { usePersonTvQuery } from "../../hooks/usePersonDetail";
+
 export default function PersonDetailPage() {
     const [selectedSection, setSelectedSection] = useState("movie");
     const [isBiographyExpanded, setIsBiographyExpanded] = useState(false);
+
     const handleSectionClick = (section) => {
         setSelectedSection(section);
     };
+
     const { id } = useParams();
     const { data, isLoading, isError } = usePersonDetailQuery(id);
     const { data: MovieCreditsData } = usePersonMovieQuery(id);
@@ -22,7 +25,7 @@ export default function PersonDetailPage() {
         return <Loading />;
     }
 
-    if (isError) {
+    if (isError || !data) {
         return <div>Error occurred while fetching person details.</div>;
     }
 
@@ -34,10 +37,14 @@ export default function PersonDetailPage() {
         <S.Container>
             <S.AboutContainer>
                 <S.ImageContainer>
-                    <S.ProfileImage
-                        src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
-                        alt={data.name}
-                    />
+                    {data.profile_path ? (
+                        <S.ProfileImage
+                            src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
+                            alt={data.name}
+                        />
+                    ) : (
+                        <div>No Image Available</div>
+                    )}
                 </S.ImageContainer>
                 <S.InfoContainer>
                     <S.Name>{data.name}</S.Name>
@@ -45,24 +52,32 @@ export default function PersonDetailPage() {
                         isExpanded={isBiographyExpanded}
                         onClick={toggleBiographyExpansion}
                     >
-                        {data.biography ? data.biography : "No Biography"}
+                        {data.biography
+                            ? isBiographyExpanded
+                                ? data.biography
+                                : `${data.biography.slice(0, 150)}...`
+                            : "No Biography"}
                     </S.Biography>
                     <S.Info>
                         <S.Label>Known For:</S.Label>
-                        <S.Value>{data.known_for_department}</S.Value>
+                        <S.Value>
+                            {data.known_for_department || "Unknown"}
+                        </S.Value>
                     </S.Info>
                     <S.Info>
                         <S.Label>Birthday:</S.Label>
-                        <S.Value>{data.birthday}</S.Value>
+                        <S.Value>{data.birthday || "N/A"}</S.Value>
                     </S.Info>
                     <S.Info>
                         <S.Label>Place of Birth:</S.Label>
-                        <S.Value>{data.place_of_birth}</S.Value>
+                        <S.Value>{data.place_of_birth || "N/A"}</S.Value>
                     </S.Info>
                     <S.Info>
                         <S.Label>Also Known As:</S.Label>
                         <S.Value>
-                            {data.also_known_as.slice(0, 3).join(", ")}
+                            {data.also_known_as?.length > 0
+                                ? data.also_known_as.slice(0, 3).join(", ")
+                                : "N/A"}
                         </S.Value>
                     </S.Info>
                 </S.InfoContainer>
@@ -82,6 +97,7 @@ export default function PersonDetailPage() {
                     📺Tv Shows
                 </S.TvShowTitle>
             </S.TitleContainer>
+
             {selectedSection === "movie" && (
                 <MovieCredits MovieCreditsData={MovieCreditsData} />
             )}

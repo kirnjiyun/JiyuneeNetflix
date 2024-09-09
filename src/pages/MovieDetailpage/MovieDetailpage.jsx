@@ -83,7 +83,7 @@ const MovieDetailPage = () => {
                             Click on the poster to watch the trailer
                         </S.TrailerMessage>
                     </S.Synopsis>
-                    {CreditsData ? (
+                    {CreditsData?.cast ? (
                         <S.Credits>
                             {CreditsData.cast.slice(0, 6).map((cast) => (
                                 <S.CreditItem
@@ -110,7 +110,7 @@ const MovieDetailPage = () => {
                             ))}
                         </S.Credits>
                     ) : (
-                        <Loading />
+                        <p>No cast information available.</p>
                     )}
                     <S.ReleaseDate>
                         📍 Release Date : {data?.release_date}
