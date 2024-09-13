@@ -50,14 +50,11 @@ export default function Multipage() {
         }
     });
 
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-        navigate(`/multi?q=${query}&page=${page}`);
-        window.scrollTo(0, 0);
-    };
+    // 첫 번째 결과의 media_type에 따라 정렬 순서 변경
+    const firstMediaType = searchResults.results[0]?.media_type;
 
-    return (
-        <S.Container>
+    const renderMovies = (
+        <>
             {movies.length > 0 && (
                 <>
                     <h2>Movies</h2>
@@ -68,7 +65,11 @@ export default function Multipage() {
                     </S.MoviespageContainer>
                 </>
             )}
+        </>
+    );
 
+    const renderTVShows = (
+        <>
             {tvShows.length > 0 && (
                 <>
                     <h2>TV Shows</h2>
@@ -79,7 +80,11 @@ export default function Multipage() {
                     </S.TvsContainer>
                 </>
             )}
+        </>
+    );
 
+    const renderPeople = (
+        <>
             {people.length > 0 && (
                 <>
                     <h2>People</h2>
@@ -90,7 +95,48 @@ export default function Multipage() {
                     </S.PeopleList>
                 </>
             )}
+        </>
+    );
 
+    const renderSections = () => {
+        switch (firstMediaType) {
+            case "tv":
+                return (
+                    <>
+                        {renderTVShows}
+                        {renderPeople}
+                        {renderMovies}
+                    </>
+                );
+            case "person":
+                return (
+                    <>
+                        {renderPeople}
+                        {renderMovies}
+                        {renderTVShows}
+                    </>
+                );
+            case "movie":
+            default:
+                return (
+                    <>
+                        {renderMovies}
+                        {renderTVShows}
+                        {renderPeople}
+                    </>
+                );
+        }
+    };
+
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+        navigate(`/multi?q=${query}&page=${page}`);
+        window.scrollTo(0, 0);
+    };
+
+    return (
+        <S.Container>
+            {renderSections()}
             <S.PagenationWrap>
                 <Pagination
                     currentPage={currentPage}
