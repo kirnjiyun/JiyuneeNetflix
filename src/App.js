@@ -10,7 +10,7 @@ import TvShowspage from "./pages/TvShowspage/TvShowspage";
 import TvDetailpage from "./pages/TvDetailpage/TvDetailpage";
 import Personpage from "./pages/PersonPage/PersonPage";
 import PersonDetailpage from "./pages/PersonDetailpage/PersonDetailpage";
-
+import Multipage from "./pages/Multipage/Multipage";
 function App() {
     return (
         <>
@@ -18,6 +18,9 @@ function App() {
             <Routes>
                 <Route path="/" element={<AppLayout />}>
                     <Route index element={<Homepage />}></Route>
+                    <Route path="multi">
+                        <Route index element={<Multipage />}></Route>
+                    </Route>
                     <Route path="movies">
                         <Route index element={<Moviespage />}></Route>
                         <Route path=":id" element={<MovieDetailpage />}></Route>

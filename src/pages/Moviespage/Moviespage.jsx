@@ -21,7 +21,7 @@ const Moviespage = () => {
     };
 
     const ClickCard = (item) => {
-        navigate(`/movie/${item.id}`);
+        navigate(`/movies/${item.id}`);
         window.scrollTo(0, 0);
     };
 
