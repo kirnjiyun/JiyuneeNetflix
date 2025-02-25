@@ -1,8 +1,10 @@
 import React from "react";
 import * as S from "./movieCard.styled";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie, onClick }) => {
+    const navigate = useNavigate();
     const { data: genreData } = useMovieGenreQuery();
 
     const showGenre = (genreIDList) => {
@@ -15,17 +17,16 @@ const MovieCard = ({ movie, onClick }) => {
         }
         return "";
     };
-
     const handleClick = () => {
-        onClick(movie);
+        console.log("Click handled, Movie ID:", movie.id);
+        navigate(`/movie/${movie.id}`);
     };
-
     return (
         <S.MovieCardContainer
             style={{
                 backgroundImage:
                     "url(" +
-                    `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie.poster_path}` +
+                    `https://www.themoviedb.org/t/p/w300_and_h450_bestv2${movie?.poster_path}` +
                     ")",
             }}
             onClick={handleClick}

@@ -8,7 +8,7 @@ const Banner = () => {
     const navigate = useNavigate();
     const ClickBanner = () => {
         const movieId = data.results[0].id;
-        navigate(`/movies/${movieId}`);
+        navigate(`/movie/${movieId}`);
     };
     if (isLoading) {
         return <Loading />;

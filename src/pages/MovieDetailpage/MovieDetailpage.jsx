@@ -64,7 +64,7 @@ const MovieDetailPage = () => {
                     style={{
                         backgroundImage:
                             "url(" +
-                            `https://www.themoviedb.org/t/p/w500${data.poster_path}` +
+                            `https://www.themoviedb.org/t/p/w500${data?.poster_path}` +
                             ")",
                     }}
                     onClick={handleModalOpen}

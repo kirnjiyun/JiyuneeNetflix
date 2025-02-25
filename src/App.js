@@ -21,7 +21,7 @@ function App() {
                     <Route path="multi">
                         <Route index element={<Multipage />}></Route>
                     </Route>
-                    <Route path="movies">
+                    <Route path="movie">
                         <Route index element={<Moviespage />}></Route>
                         <Route path=":id" element={<MovieDetailpage />}></Route>
                     </Route>

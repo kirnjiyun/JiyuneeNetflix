@@ -20,12 +20,11 @@ const Moviespage = () => {
         setPage(selected);
     };
 
-    const ClickCard = (item) => {
-        navigate(`/movies/${item.id}`);
+    const clickCard = (item) => {
+        navigate(`/movie/${item.id}`);
         window.scrollTo(0, 0);
     };
 
-    // Revert to movie-specific search hook
     const { data, isLoading, isError, error } = useSearchMovieQuery({
         keyword,
         page,
@@ -90,11 +89,11 @@ const Moviespage = () => {
                             />
                         </S.FilterContainer>
                         <S.MoviesContainer>
-                            {filteredResults.map((item) => (
+                            {filteredResults.map((movie) => (
                                 <MovieCard
-                                    onClick={ClickCard}
-                                    key={item.id}
-                                    movie={item}
+                                    key={movie.id}
+                                    movie={movie}
+                                    onClick={() => clickCard}
                                 />
                             ))}
                         </S.MoviesContainer>
