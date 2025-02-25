@@ -40,7 +40,7 @@ const AppLayout = () => {
                     </S.HamburgerMenu>
                     <S.NavLinks isOpen={isOpen}>
                         <S.NavLink to="/">Home</S.NavLink>
-                        <S.NavLink to="/movies">Movies</S.NavLink>
+                        <S.NavLink to="/movie">Movies</S.NavLink>
                         <S.NavLink to="/tv">Tv Shows</S.NavLink>
                         <S.NavLink to="/person">People</S.NavLink>
                     </S.NavLinks>

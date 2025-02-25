@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { usePersonDetailQuery } from "../../hooks/usePersonDetail";
+import { usePersonMovieQuery } from "../../hooks/usePersonDetail";
+import { usePersonTvQuery } from "../../hooks/usePersonDetail";
 import { useParams } from "react-router-dom";
 import Loading from "../../common/Loading/Loading";
 import * as S from "./personDetailpage.styled";
 import MovieCredits from "./components/MovieCredits/MovieCredits";
 import TvCredits from "./components/TvCredits/TvCredits";
-import { usePersonMovieQuery } from "../../hooks/usePersonDetail";
-import { usePersonTvQuery } from "../../hooks/usePersonDetail";
 
 export default function PersonDetailPage() {
     const [selectedSection, setSelectedSection] = useState("movie");
@@ -17,16 +17,34 @@ export default function PersonDetailPage() {
     };
 
     const { id } = useParams();
-    const { data, isLoading, isError } = usePersonDetailQuery(id);
-    const { data: MovieCreditsData } = usePersonMovieQuery(id);
-    const { data: TvCreditsData } = usePersonTvQuery(id);
 
-    if (isLoading) {
+    // 인물 상세 정보 쿼리
+    const {
+        data: personData,
+        isLoading: isPersonLoading,
+        isError: isPersonError,
+    } = usePersonDetailQuery(id);
+    // 영화 크레딧 쿼리
+    const {
+        data: movieCreditsData,
+        isLoading: isMovieLoading,
+        isError: isMovieError,
+    } = usePersonMovieQuery(id);
+    // TV 크레딧 쿼리
+    const {
+        data: tvCreditsData,
+        isLoading: isTvLoading,
+        isError: isTvError,
+    } = usePersonTvQuery(id);
+
+    // 인물 정보 로딩 중일 때
+    if (isPersonLoading) {
         return <Loading />;
     }
 
-    if (isError || !data) {
-        return <div>Error occurred while fetching person details.</div>;
+    // 인물 정보 오류 발생 시
+    if (isPersonError || !personData) {
+        return <div>인물 정보를 불러오는 중 오류가 발생했습니다.</div>;
     }
 
     const toggleBiographyExpansion = () => {
@@ -37,46 +55,48 @@ export default function PersonDetailPage() {
         <S.Container>
             <S.AboutContainer>
                 <S.ImageContainer>
-                    {data.profile_path ? (
+                    {personData.profile_path ? (
                         <S.ProfileImage
-                            src={`https://image.tmdb.org/t/p/w500${data.profile_path}`}
-                            alt={data.name}
+                            src={`https://image.tmdb.org/t/p/w500${personData.profile_path}`}
+                            alt={personData.name}
                         />
                     ) : (
-                        <div>No Image Available</div>
+                        <div>이미지가 없습니다</div>
                     )}
                 </S.ImageContainer>
                 <S.InfoContainer>
-                    <S.Name>{data.name}</S.Name>
+                    <S.Name>{personData.name}</S.Name>
                     <S.Biography
                         isExpanded={isBiographyExpanded}
                         onClick={toggleBiographyExpansion}
                     >
-                        {data.biography
+                        {personData.biography
                             ? isBiographyExpanded
-                                ? data.biography
-                                : `${data.biography.slice(0, 150)}...`
-                            : "No Biography"}
+                                ? personData.biography
+                                : `${personData.biography.slice(0, 150)}...`
+                            : "소개가 없습니다"}
                     </S.Biography>
                     <S.Info>
-                        <S.Label>Known For:</S.Label>
+                        <S.Label>주요 분야:</S.Label>
                         <S.Value>
-                            {data.known_for_department || "Unknown"}
+                            {personData.known_for_department || "알 수 없음"}
                         </S.Value>
                     </S.Info>
                     <S.Info>
-                        <S.Label>Birthday:</S.Label>
-                        <S.Value>{data.birthday || "N/A"}</S.Value>
+                        <S.Label>생일:</S.Label>
+                        <S.Value>{personData.birthday || "N/A"}</S.Value>
                     </S.Info>
                     <S.Info>
-                        <S.Label>Place of Birth:</S.Label>
-                        <S.Value>{data.place_of_birth || "N/A"}</S.Value>
+                        <S.Label>출생지:</S.Label>
+                        <S.Value>{personData.place_of_birth || "N/A"}</S.Value>
                     </S.Info>
                     <S.Info>
-                        <S.Label>Also Known As:</S.Label>
+                        <S.Label>다른 이름:</S.Label>
                         <S.Value>
-                            {data.also_known_as?.length > 0
-                                ? data.also_known_as.slice(0, 3).join(", ")
+                            {personData.also_known_as?.length > 0
+                                ? personData.also_known_as
+                                      .slice(0, 3)
+                                      .join(", ")
                                 : "N/A"}
                         </S.Value>
                     </S.Info>
@@ -88,22 +108,32 @@ export default function PersonDetailPage() {
                     onClick={() => handleSectionClick("movie")}
                     isSelected={selectedSection === "movie"}
                 >
-                    🎞️ Movie
+                    🎞️ 영화
                 </S.MovieTitle>
                 <S.TvShowTitle
                     onClick={() => handleSectionClick("TvShow")}
                     isSelected={selectedSection === "TvShow"}
                 >
-                    📺Tv Shows
+                    📺 TV 쇼
                 </S.TvShowTitle>
             </S.TitleContainer>
 
-            {selectedSection === "movie" && (
-                <MovieCredits MovieCreditsData={MovieCreditsData} />
-            )}
-            {selectedSection === "TvShow" && (
-                <TvCredits TvCreditsData={TvCreditsData} />
-            )}
+            {selectedSection === "movie" &&
+                (isMovieLoading ? (
+                    <Loading />
+                ) : isMovieError || !movieCreditsData ? (
+                    <div>영화 크레딧을 불러오는 중 오류가 발생했습니다.</div>
+                ) : (
+                    <MovieCredits MovieCreditsData={movieCreditsData} />
+                ))}
+            {selectedSection === "TvShow" &&
+                (isTvLoading ? (
+                    <Loading />
+                ) : isTvError || !tvCreditsData ? (
+                    <div>TV 크레딧을 불러오는 중 오류가 발생했습니다.</div>
+                ) : (
+                    <TvCredits TvCreditsData={tvCreditsData} />
+                ))}
         </S.Container>
     );
 }

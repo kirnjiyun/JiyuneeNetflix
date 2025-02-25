@@ -9,22 +9,25 @@ import {
     ChatTitle,
     CloseButton,
     ChatBody,
-    MovieTitle,
     ChatFooter,
     ChatInput,
     SendButton,
-    PlaceholderText,
+    Message,
+    MovieItem, // 추가
 } from "./chatBot.styled";
 
 const ChatBot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState("");
-    const [chatHistory, setChatHistory] = useState([]);
+    const [chatHistory, setChatHistory] = useState(() => {
+        const savedHistory = localStorage.getItem("chatHistory");
+        return savedHistory ? JSON.parse(savedHistory) : [];
+    });
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("chatHistory 상태:", chatHistory);
+        localStorage.setItem("chatHistory", JSON.stringify(chatHistory));
     }, [chatHistory]);
 
     const fetchRecommendations = async () => {
@@ -77,9 +80,9 @@ const ChatBot = () => {
         console.log(`선택된 영화: ${title}, ID: ${id}`);
         setIsOpen(false);
         if (id) {
-            navigate(`/movie/${id}`); // 기존 MovieDetailPage로 이동
+            navigate(`/movie/${id}`);
         } else {
-            navigate(`/multi?q=${encodeURIComponent(title)}`); // 검색 페이지로 이동
+            navigate(`/multi?q=${encodeURIComponent(title)}`);
         }
     };
 
@@ -89,38 +92,28 @@ const ChatBot = () => {
             {isOpen && (
                 <ChatWindow>
                     <ChatHeader>
-                        <ChatTitle>영화 추천 챗봇</ChatTitle>
+                        <ChatTitle>작품 추천 AI봇</ChatTitle>
                         <CloseButton onClick={() => setIsOpen(false)}>
-                            X
+                            ×
                         </CloseButton>
                     </ChatHeader>
+
                     <ChatBody>
                         {isLoading ? (
-                            <PlaceholderText>로딩 중...</PlaceholderText>
+                            <Message type="loading">로딩 중...</Message>
                         ) : chatHistory.length > 0 ? (
                             chatHistory.map((item, index) => (
-                                <div key={index} style={{ margin: "10px 0" }}>
+                                <Message key={index} type={item.type}>
                                     {item.type === "user" ? (
-                                        <PlaceholderText
-                                            style={{
-                                                color: "#007bff",
-                                                fontWeight: "bold",
-                                            }}
-                                        >
-                                            나: {item.text}
-                                        </PlaceholderText>
+                                        <p>{item.text}</p>
                                     ) : (
                                         <>
-                                            <PlaceholderText
-                                                style={{ color: "#28a745" }}
-                                            >
-                                                챗봇: {item.intro}
-                                            </PlaceholderText>
+                                            <p>{item.intro}</p>
                                             {item.movies &&
                                                 item.movies.length > 0 &&
                                                 item.movies.map(
                                                     (movie, idx) => (
-                                                        <MovieTitle
+                                                        <MovieItem
                                                             key={idx}
                                                             onClick={() =>
                                                                 handleTitleClick(
@@ -128,25 +121,22 @@ const ChatBot = () => {
                                                                     movie.id
                                                                 )
                                                             }
-                                                            style={{
-                                                                marginTop:
-                                                                    "5px",
-                                                            }}
                                                         >
                                                             {movie.title}
-                                                        </MovieTitle>
+                                                        </MovieItem>
                                                     )
                                                 )}
                                         </>
                                     )}
-                                </div>
+                                </Message>
                             ))
                         ) : (
-                            <PlaceholderText>
-                                원하는 작품을 말해봐
-                            </PlaceholderText>
+                            <Message type="bot">
+                                원하는 작품의 느낌을 말해주세요
+                            </Message>
                         )}
                     </ChatBody>
+
                     <ChatFooter>
                         <ChatInput
                             type="text"

@@ -15,11 +15,37 @@ const MovieDetailPage = () => {
     const [selectedSection, setSelectedSection] = useState("reviews");
     const [showModal, setShowModal] = useState(false);
     const { id } = useParams();
-    const { data, isLoading, isError } = useMovieDetailQuery(id);
-    const { data: reviewData } = useMovieDetailReviewsQuery(id);
-    const { data: CreditsData } = useMovieDetailCastsQuery(id);
-    const { data: RecommendData } = useMovieRecommendQuery(id);
-    const { data: videosData } = useMovieVideosQuery(id);
+
+    // 영화 상세 정보 쿼리 (한국어 설정)
+    const {
+        data: movieData,
+        isLoading: isMovieLoading,
+        isError: isMovieError,
+    } = useMovieDetailQuery(id, { language: "ko-KR" });
+    // 리뷰 쿼리 (한국어 설정)
+    const {
+        data: reviewData,
+        isLoading: isReviewLoading,
+        isError: isReviewError,
+    } = useMovieDetailReviewsQuery(id, { language: "ko-KR" });
+    // 캐스트 쿼리 (한국어 설정)
+    const {
+        data: creditsData,
+        isLoading: isCreditsLoading,
+        isError: isCreditsError,
+    } = useMovieDetailCastsQuery(id, { language: "ko-KR" });
+    // 추천 영화 쿼리 (한국어 설정)
+    const {
+        data: recommendData,
+        isLoading: isRecommendLoading,
+        isError: isRecommendError,
+    } = useMovieRecommendQuery(id, { language: "ko-KR" });
+    // 비디오 쿼리 (한국어 설정)
+    const {
+        data: videosData,
+        isLoading: isVideosLoading,
+        isError: isVideosError,
+    } = useMovieVideosQuery(id, { language: "ko-KR" });
 
     const handleSectionClick = (section) => {
         setSelectedSection(section);
@@ -46,15 +72,15 @@ const MovieDetailPage = () => {
         }, 1000);
     };
     const navigate = useNavigate();
-    if (isLoading) {
-        return (
-            <>
-                <Loading />
-            </>
-        );
+
+    // 영화 상세 정보 로딩 중일 때
+    if (isMovieLoading) {
+        return <Loading />;
     }
-    if (isError) {
-        return <div>Error occurred while fetching movie details.</div>;
+
+    // 영화 상세 정보 오류 발생 시
+    if (isMovieError || !movieData) {
+        return <div>영화 정보를 불러오는 중 오류가 발생했습니다.</div>;
     }
 
     return (
@@ -64,59 +90,59 @@ const MovieDetailPage = () => {
                     style={{
                         backgroundImage:
                             "url(" +
-                            `https://www.themoviedb.org/t/p/w500${data?.poster_path}` +
+                            `https://www.themoviedb.org/t/p/w500${movieData?.poster_path}` +
                             ")",
                     }}
                     onClick={handleModalOpen}
                 />
 
                 <S.MovieDetails>
-                    <S.Title>{data?.title}</S.Title>
+                    <S.Title>{movieData?.title}</S.Title>
                     <S.GenreList>
-                        {data?.genres.map((genre) => (
+                        {movieData?.genres.map((genre) => (
                             <S.Genre key={genre.id}>{genre.name}</S.Genre>
                         ))}
                     </S.GenreList>
                     <S.Synopsis>
-                        {data?.overview}
+                        {movieData?.overview}
                         <S.TrailerMessage>
-                            Click on the poster to watch the trailer
+                            포스터를 클릭하면 예고편을 볼 수 있습니다.
                         </S.TrailerMessage>
                     </S.Synopsis>
-                    {CreditsData?.cast ? (
+                    {isCreditsLoading ? (
+                        <Loading />
+                    ) : isCreditsError || !creditsData ? (
+                        <p>캐스트 정보를 불러오는 중 오류가 발생했습니다.</p>
+                    ) : (
                         <S.Credits>
-                            {CreditsData.cast.slice(0, 6).map((cast) => (
+                            {creditsData.cast.slice(0, 6).map((cast) => (
                                 <S.CreditItem
                                     key={cast.id}
                                     onClick={() => handleClick(cast.id)}
                                 >
-                                    {loadingStates[cast.id] ? (
-                                        <Loading />
-                                    ) : (
-                                        <>
-                                            <S.CreditImage
-                                                src={`https://www.themoviedb.org/t/p/w200${cast.profile_path}`}
-                                                alt={cast.name}
-                                            />
-                                            <S.CreditName>
-                                                {cast.name}
-                                            </S.CreditName>
-                                            <S.CreditCharacter>
-                                                {cast.character}
-                                            </S.CreditCharacter>
-                                        </>
-                                    )}
+                                    <>
+                                        <S.CreditImage
+                                            src={`https://www.themoviedb.org/t/p/w200${cast?.profile_path}`}
+                                            alt={cast?.name}
+                                        />
+                                        <S.CreditName>
+                                            {cast?.name}
+                                        </S.CreditName>
+                                        <S.CreditCharacter>
+                                            {cast?.character}
+                                        </S.CreditCharacter>
+                                    </>
                                 </S.CreditItem>
                             ))}
                         </S.Credits>
-                    ) : (
-                        <p>No cast information available.</p>
                     )}
                     <S.ReleaseDate>
-                        📍 Release Date : {data?.release_date}
+                        📍 개봉일 : {movieData?.release_date}
                     </S.ReleaseDate>
-                    <S.Runtime>⏰ RunTime : {data?.runtime} minutes</S.Runtime>
-                    <S.Vote> ⭐️ {data?.vote_average.toFixed(1)}</S.Vote>
+                    <S.Runtime>
+                        ⏰ 상영 시간 : {movieData?.runtime} 분
+                    </S.Runtime>
+                    <S.Vote> ⭐️ {movieData?.vote_average.toFixed(1)}</S.Vote>
                 </S.MovieDetails>
             </S.MovieContent>
             <S.TitleContainer>
@@ -124,27 +150,37 @@ const MovieDetailPage = () => {
                     onClick={() => handleSectionClick("reviews")}
                     isSelected={selectedSection === "reviews"}
                 >
-                    📝 Reviews ({reviewData?.total_results})
+                    📝 리뷰 ({reviewData?.total_results || 0})
                 </S.ReviewTitle>
                 <S.RecommendTitle
                     onClick={() => handleSectionClick("recommendations")}
                     isSelected={selectedSection === "recommendations"}
                 >
-                    🎞️ Recommended movies
+                    🎞️ 추천 영화
                 </S.RecommendTitle>
             </S.TitleContainer>
-            {selectedSection === "reviews" && (
-                <ReviewSection reviewData={reviewData} />
-            )}
-            {selectedSection === "recommendations" && (
-                <RecommendSection recommendData={RecommendData} />
-            )}
+            {selectedSection === "reviews" &&
+                (isReviewLoading ? (
+                    <Loading />
+                ) : isReviewError || !reviewData ? (
+                    <div>리뷰를 불러오는 중 오류가 발생했습니다.</div>
+                ) : (
+                    <ReviewSection reviewData={reviewData} />
+                ))}
+            {selectedSection === "recommendations" &&
+                (isRecommendLoading ? (
+                    <Loading />
+                ) : isRecommendError || !recommendData ? (
+                    <div>추천 영화를 불러오는 중 오류가 발생했습니다.</div>
+                ) : (
+                    <RecommendSection recommendData={recommendData} />
+                ))}
 
             {showModal && <S.Overlay onClick={handleModalClose} />}
             <MovieModal
                 show={showModal}
                 onHide={handleModalClose}
-                title={data?.title}
+                title={movieData?.title}
                 videosData={videosData}
                 onClick={handleModalClick}
             />

@@ -1,5 +1,37 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
+//
+// 챗봇 열릴 때 아래에서 위로 슬라이드되는 애니메이션
+//
+const slideUp = keyframes`
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+//
+// 아이콘이 반짝반짝 빛나는 애니메이션
+//
+const sparkle = keyframes`
+  0% {
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 12px rgba(229, 9, 20, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(229, 9, 20, 0.9), 0 0 30px rgba(229, 9, 20, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 12px rgba(229, 9, 20, 0.3);
+  }
+`;
+
+//
+// 챗봇이 위치할 컨테이너 (우측 하단 고정)
+//
 export const ChatBotContainer = styled.div`
     position: fixed;
     bottom: 20px;
@@ -7,35 +39,60 @@ export const ChatBotContainer = styled.div`
     z-index: 1000;
 `;
 
+//
+// 챗봇 아이콘 (닫혀있을 때 보이는 동그란 버튼)
+//
 export const ChatIcon = styled.div`
     width: 60px;
     height: 60px;
-    background-color: #007bff;
+    background-color: #e50914; /* 붉은 톤 */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #ffffff;
     cursor: pointer;
-    font-size: 24px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 28px;
+    transition: transform 0.3s ease;
+
+    /* 반짝반짝 빛나는 애니메이션 */
+    animation: ${sparkle} 2s infinite;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 `;
 
+//
+// 실제 챗봇 창
+//
 export const ChatWindow = styled.div`
-    width: 400px; // 크기 키우기 (기존 300px 또는 기본값에서 조정)
-    height: 600px; // 크기 키우기 (기존 500px 또는 기본값에서 조정)
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: #141414; /* 넷플릭스 스타일의 진한 배경 */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    animation: ${slideUp} 0.5s ease-out;
+
+    /* 반응형: 모바일(작은 화면)에서는 화면의 90%, 80% 사용 */
+    width: 90vw;
+    height: 80vh;
+
+    /* 데스크탑(768px 이상)에서는 고정 크기 */
+    @media (min-width: 768px) {
+        width: 500px;
+        height: 650px;
+    }
 `;
 
+//
+// 챗봇 상단 헤더 영역
+//
 export const ChatHeader = styled.div`
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
+    background-color: #000000; /* 상단 헤더는 완전 블랙 */
+    padding: 15px;
+    border-bottom: 1px solid #333;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,109 +100,134 @@ export const ChatHeader = styled.div`
 
 export const ChatTitle = styled.h3`
     margin: 0;
-    font-size: 18px;
-    color: #333;
+    font-size: 20px;
+    color: #e50914; /* 빨간색 포인트 */
 `;
 
 export const CloseButton = styled.button`
-    background: none;
+    background: transparent;
     border: none;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
-    color: #dc3545;
-    padding: 0;
-    line-height: 1;
+    color: #ffffff;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: #e50914;
+    }
 `;
 
+//
+// 챗봇 메인 대화 영역
+//
+export const ChatBody = styled.div`
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: #1f1f1f;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    /* 스크롤바 스타일 (WebKit 계열 브라우저) */
+    ::-webkit-scrollbar {
+        width: 8px; /* 스크롤바 너비 */
+    }
+    ::-webkit-scrollbar-track {
+        background: #2c2c2c; /* 스크롤바 트랙 배경색 */
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: #e50914; /* 스크롤바 '막대' 색상 */
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #f6121d; /* 호버 시 더 밝게 */
+    }
+`;
+
+//
+// 챗봇 하단 입력 영역
+//
 export const ChatFooter = styled.div`
-    padding: 10px;
-    border-top: 1px solid #dee2e6;
+    padding: 15px;
+    border-top: 1px solid #333;
     display: flex;
     gap: 10px;
+    background-color: #141414;
 `;
 
+//
+// 입력창 스타일
+//
 export const ChatInput = styled.input`
     flex: 1;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 16px;
+    background-color: #2c2c2c;
+    color: #ffffff;
 
     &:focus {
         outline: none;
-        border-color: #007bff;
-        box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        border-color: #e50914;
+        box-shadow: 0 0 5px rgba(229, 9, 20, 0.5);
     }
 `;
 
+//
+// 보내기 버튼 스타일
+//
 export const SendButton = styled.button`
-    padding: 8px 16px;
-    background-color: #007bff;
+    padding: 10px 20px;
+    background-color: #e50914;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     transition: background-color 0.3s;
 
     &:hover:not(:disabled) {
-        background-color: #0056b3;
+        background-color: #f6121d;
     }
 
     &:disabled {
-        background-color: #6c757d;
+        background-color: #9e9e9e;
         cursor: not-allowed;
     }
 `;
 
-export const ChatBody = styled.div`
-    flex: 1;
-    padding: 20px;
-    overflow-y: auto; // 스크롤 가능
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: #f8f9fa; // 가벼운 배경색 추가 (선택 사항)
+//
+// 대화 메시지 스타일
+//
+export const Message = styled.div`
+    max-width: 80%;
+    padding: 12px;
+    border-radius: 10px;
+    background-color: ${(props) =>
+        props.type === "user" ? "#e50914" : "#333333"};
+    color: #ffffff;
+    align-self: ${(props) =>
+        props.type === "user" ? "flex-end" : "flex-start"};
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
 `;
 
-export const PlaceholderText = styled.p`
-    text-align: left;
-    color: #666;
-    margin: 5px 0;
-    font-style: italic;
-
-    &.user {
-        color: #007bff;
-        font-weight: bold;
-    }
-
-    &.bot {
-        color: #28a745;
-        font-weight: normal;
-    }
-
-    &.loading {
-        color: #007bff;
-        font-weight: bold;
-        animation: blink 1s infinite;
-
-        @keyframes blink {
-            50% {
-                opacity: 0.5;
-            }
-        }
-    }
-`;
-
-export const MovieTitle = styled.div`
-    padding: 10px;
-    background-color: #f1f1f1;
-    border-radius: 5px;
+//
+// 추천 작품 스타일 (호버 시 트랜지션 효과)
+//
+export const MovieItem = styled.div`
     cursor: pointer;
-    transition: background-color 0.3s;
     margin-top: 5px;
+    padding: 8px;
+    background-color: #2c2c2c;
+    border-radius: 5px;
+    color: #ffffff;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 
     &:hover {
-        background-color: #e9ecef;
+        background-color: #333333;
+        transform: scale(1.02);
     }
 `;
