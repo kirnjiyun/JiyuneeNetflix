@@ -18,7 +18,8 @@ export const MoviespageContainer = styled.div`
 export const FilterContainer = styled.div`
     display: flex;
     flex-direction: column;
-
+    position: sticky;
+    top: 0;
     @media (max-width: 768px) {
         margin-bottom: 20px;
     }

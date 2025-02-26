@@ -7,3 +7,9 @@ export const HomepageContainer = styled.div`
     max-width: 100vw;
     margin-bottom: 4rem;
 `;
+export const Loading = styled.div`
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 20px;
+`;

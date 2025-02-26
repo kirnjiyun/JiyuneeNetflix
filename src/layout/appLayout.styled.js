@@ -5,6 +5,27 @@ export const AppLayout = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    /* 콘텐츠 영역 조정 */
+    & > *:not(nav):not(footer) {
+        /* Navbar와 Footer 제외한 Outlet 부분 */
+        max-width: 1200px; /* 최대 너비 설정 */
+        width: 100%;
+        margin: 0 auto; /* 중앙 정렬 */
+        padding: 20px; /* 내부 여백 추가 */
+    }
+
+    /* 반응형 조정 */
+    @media (max-width: 768px) {
+        & > *:not(nav):not(footer) {
+            padding: 15px; /* 태블릿에서 여백 축소 */
+        }
+    }
+
+    @media (max-width: 480px) {
+        & > *:not(nav):not(footer) {
+            padding: 10px; /* 모바일에서 더 축소 */
+        }
+    }
 `;
 export const Navbar = styled.nav`
     display: flex;

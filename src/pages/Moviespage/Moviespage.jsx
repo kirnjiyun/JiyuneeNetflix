@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import * as S from "./moviespage.styled";
 import FilterandSort from "./components/filterandSort/FilterandSort";
 import Loading from "../../common/Loading/Loading";
-import Pagination from "./components/pagination/Pagination";
 
 const Moviespage = () => {
     const [query] = useSearchParams();
@@ -14,22 +13,72 @@ const Moviespage = () => {
     const [page, setPage] = useState(1);
     const [selectedGenre, setSelectedGenre] = useState("all");
     const [selectedSort, setSelectedSort] = useState("");
+    const [movies, setMovies] = useState([]);
     const [filteredResults, setFilteredResults] = useState([]);
-
-    const ClickPage = (selected) => {
-        setPage(selected);
-    };
-
-    const clickCard = (item) => {
-        navigate(`/movie/${item.id}`);
-        window.scrollTo(0, 0);
-    };
+    const sentinelRef = useRef(null);
 
     const { data, isLoading, isError, error } = useSearchMovieQuery({
         keyword,
         page,
     });
 
+    // 키워드가 변경되면 영화 목록과 페이지를 초기화
+    useEffect(() => {
+        setMovies([]);
+        setPage(1);
+    }, [keyword]);
+
+    useEffect(() => {
+        if (data?.results) {
+            setMovies((prev) => [...prev, ...data.results]);
+        }
+    }, [data]);
+
+    // 영화 목록에 필터와 정렬 적용
+    useEffect(() => {
+        let filtered = movies;
+        if (selectedGenre !== "all") {
+            filtered = filtered.filter((item) =>
+                item.genre_ids.includes(parseInt(selectedGenre))
+            );
+        }
+        if (selectedSort === "popularity.asc") {
+            filtered = [...filtered].sort(
+                (a, b) => a.popularity - b.popularity
+            );
+        } else if (selectedSort === "popularity.desc") {
+            filtered = [...filtered].sort(
+                (a, b) => b.popularity - a.popularity
+            );
+        } else {
+            filtered = [...filtered];
+        }
+        setFilteredResults(filtered);
+    }, [movies, selectedGenre, selectedSort]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                if (
+                    entries[0].isIntersecting &&
+                    !isLoading &&
+                    data &&
+                    page < data.total_pages
+                ) {
+                    setPage((prev) => prev + 1);
+                }
+            },
+            { threshold: 1.0 }
+        );
+        if (sentinelRef.current) {
+            observer.observe(sentinelRef.current);
+        }
+        return () => {
+            if (sentinelRef.current) {
+                observer.unobserve(sentinelRef.current);
+            }
+        };
+    }, [page, data, isLoading]);
     const handleGenreChange = (genre) => {
         setSelectedGenre(genre);
     };
@@ -38,38 +87,16 @@ const Moviespage = () => {
         setSelectedSort(sort);
     };
 
-    useEffect(() => {
-        if (data?.results) {
-            let filtered = data.results;
-
-            // Genre filter applies to movies only
-            if (selectedGenre !== "all") {
-                filtered = filtered.filter((item) =>
-                    item.genre_ids.includes(parseInt(selectedGenre))
-                );
-            }
-
-            if (selectedSort === "popularity.asc") {
-                filtered = filtered.sort((a, b) => a.popularity - b.popularity);
-            } else if (selectedSort === "popularity.desc") {
-                filtered = filtered.sort((a, b) => b.popularity - a.popularity);
-            }
-
-            setFilteredResults(filtered);
-        }
-    }, [data, selectedGenre, selectedSort]);
-
-    console.log(data?.results);
-
-    if (isLoading) {
-        return <Loading />;
-    }
+    const clickCard = (item) => {
+        navigate(`/movie/${item.id}`);
+        window.scrollTo(0, 0);
+    };
 
     if (isError) {
         return <div>{error.message}</div>;
     }
 
-    const hasResults = filteredResults?.length > 0;
+    const hasResults = movies.length > 0;
 
     const goBack = () => {
         navigate(-1);
@@ -93,18 +120,14 @@ const Moviespage = () => {
                                 <MovieCard
                                     key={movie.id}
                                     movie={movie}
-                                    onClick={() => clickCard}
+                                    onClick={clickCard}
                                 />
                             ))}
                         </S.MoviesContainer>
+                        <div ref={sentinelRef} style={{ height: "10px" }}></div>
                     </S.MoviespageContainer>
-                    <S.PagenationWrap>
-                        <Pagination
-                            totalPages={data?.total_pages}
-                            currentPage={page}
-                            onPageChange={ClickPage}
-                        />
-                    </S.PagenationWrap>
+                    {isLoading && <Loading />}
+                    <div ref={sentinelRef}></div>
                 </>
             ) : (
                 <S.NoResultsContainer>

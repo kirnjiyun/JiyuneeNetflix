@@ -2,7 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../utils/api";
 
 const fetchApiAiringToday = async () => {
-    const response = await api.get("/tv/airing_today");
+    const response = await api.get("/tv/airing_today", {
+        params: {
+            language: "ko-KR",
+        },
+    });
     return response.data;
 };
 

@@ -1,8 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-//
-// 챗봇 열릴 때 아래에서 위로 슬라이드되는 애니메이션
-//
 const slideUp = keyframes`
   from {
     transform: translateY(100%);
@@ -14,9 +11,6 @@ const slideUp = keyframes`
   }
 `;
 
-//
-// 아이콘이 반짝반짝 빛나는 애니메이션
-//
 const sparkle = keyframes`
   0% {
     box-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 12px rgba(229, 9, 20, 0.3);
@@ -39,9 +33,6 @@ export const ChatBotContainer = styled.div`
     z-index: 1000;
 `;
 
-//
-// 챗봇 아이콘 (닫혀있을 때 보이는 동그란 버튼)
-//
 export const ChatIcon = styled.div`
     width: 60px;
     height: 60px;
@@ -86,9 +77,6 @@ export const ChatWindow = styled.div`
     }
 `;
 
-//
-// 챗봇 상단 헤더 영역
-//
 export const ChatHeader = styled.div`
     background-color: #000000; /* 상단 헤더는 완전 블랙 */
     padding: 15px;
@@ -117,9 +105,6 @@ export const CloseButton = styled.button`
     }
 `;
 
-//
-// 챗봇 메인 대화 영역
-//
 export const ChatBody = styled.div`
     flex: 1;
     padding: 15px;
@@ -129,7 +114,6 @@ export const ChatBody = styled.div`
     flex-direction: column;
     gap: 10px;
 
-    /* 스크롤바 스타일 (WebKit 계열 브라우저) */
     ::-webkit-scrollbar {
         width: 8px; /* 스크롤바 너비 */
     }
@@ -145,9 +129,6 @@ export const ChatBody = styled.div`
     }
 `;
 
-//
-// 챗봇 하단 입력 영역
-//
 export const ChatFooter = styled.div`
     padding: 15px;
     border-top: 1px solid #333;
@@ -156,9 +137,6 @@ export const ChatFooter = styled.div`
     background-color: #141414;
 `;
 
-//
-// 입력창 스타일
-//
 export const ChatInput = styled.input`
     flex: 1;
     padding: 10px;
@@ -175,9 +153,6 @@ export const ChatInput = styled.input`
     }
 `;
 
-//
-// 보내기 버튼 스타일
-//
 export const SendButton = styled.button`
     padding: 10px 20px;
     background-color: #e50914;
@@ -198,9 +173,6 @@ export const SendButton = styled.button`
     }
 `;
 
-//
-// 대화 메시지 스타일
-//
 export const Message = styled.div`
     max-width: 80%;
     padding: 12px;
@@ -214,9 +186,6 @@ export const Message = styled.div`
     word-wrap: break-word;
 `;
 
-//
-// 추천 작품 스타일 (호버 시 트랜지션 효과)
-//
 export const MovieItem = styled.div`
     cursor: pointer;
     margin-top: 5px;
