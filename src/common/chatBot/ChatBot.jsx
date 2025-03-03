@@ -47,7 +47,7 @@ const ChatBot = () => {
         setIsLoading(true);
         try {
             const response = await axios.post(
-                "http://localhost:4040/recommend",
+                "https://chatbot-for-yunflix.onrender.com/recommend",
                 { message: input },
                 {
                     headers: { "Content-Type": "application/json" },
