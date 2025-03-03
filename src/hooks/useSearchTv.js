@@ -5,11 +5,13 @@ const fetchSearchTV = async ({ keyword, page }) => {
     try {
         if (keyword) {
             const response = await api.get(
-                `/search/tv?query=${keyword}&page=${page}`
+                `/search/tv?query=${keyword}&page=${page}&language=ko-KR`
             );
             return response;
         } else {
-            const response = await api.get(`/tv/popular?page=${page}`);
+            const response = await api.get(
+                `/tv/popular?page=${page}&language=ko-KR`
+            );
             return response;
         }
     } catch (error) {

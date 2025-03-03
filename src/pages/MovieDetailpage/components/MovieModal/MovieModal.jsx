@@ -18,13 +18,17 @@ const MovieModal = ({ show, onHide, title, videosData }) => {
         <S.ModalWrapper show={show} onHide={onHide}>
             <Modal.Header>
                 <Modal.Title> 🎬 {title} Trailer</Modal.Title>
-                <S.CloseButton onClick={onHide}>&times;</S.CloseButton>
+                <S.CloseButton onClick={onHide}>×</S.CloseButton>
             </Modal.Header>
             <S.ModalContent>
-                {videoKey && (
+                {videoKey ? (
                     <S.VideoContainer>
                         <YouTube videoId={videoKey} opts={opts} />
                     </S.VideoContainer>
+                ) : (
+                    <S.NoTrailerMessage>
+                        트레일러가 존재하지 않습니다.
+                    </S.NoTrailerMessage>
                 )}
             </S.ModalContent>
         </S.ModalWrapper>

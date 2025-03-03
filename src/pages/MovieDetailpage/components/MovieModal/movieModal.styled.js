@@ -82,3 +82,9 @@ export const VideoContainer = styled.div`
         height: 100%;
     }
 `;
+export const NoTrailerMessage = styled.div`
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    font-size: 16px;
+`;

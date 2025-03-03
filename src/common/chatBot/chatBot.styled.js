@@ -13,16 +13,34 @@ const slideUp = keyframes`
 
 const sparkle = keyframes`
   0% {
-    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 12px rgba(229, 9, 20, 0.3);
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.7), 0 0 20px rgba(229, 9, 20, 0.5);
   }
   50% {
-    box-shadow: 0 0 24px rgba(229, 9, 20, 0.9), 0 0 30px rgba(229, 9, 20, 0.5);
+    box-shadow: 0 0 30px rgba(229, 9, 20, 1), 0 0 50px rgba(229, 9, 20, 0.8);
   }
   100% {
-    box-shadow: 0 0 8px rgba(229, 9, 20, 0.5), 0 0 12px rgba(229, 9, 20, 0.3);
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.7), 0 0 20px rgba(229, 9, 20, 0.5);
   }
 `;
 
+export const ChatIcon = styled.div`
+    width: 60px;
+    height: 60px;
+    background-color: #e50914;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 28px;
+    transition: transform 0.3s ease;
+    animation: ${sparkle} 1.5s infinite; /* 속도 조정 */
+
+    &:hover {
+        transform: scale(1.1);
+    }
+`;
 //
 // 챗봇이 위치할 컨테이너 (우측 하단 고정)
 //
@@ -32,58 +50,36 @@ export const ChatBotContainer = styled.div`
     right: 20px;
     z-index: 1000;
 `;
-
-export const ChatIcon = styled.div`
-    width: 60px;
-    height: 60px;
-    background-color: #e50914; /* 붉은 톤 */
-    border-radius: 50%;
+export const ChatHeader = styled.div`
+    background-color: #000000;
+    padding: 15px;
+    border-bottom: 1px solid #333;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    cursor: pointer;
-    font-size: 28px;
-    transition: transform 0.3s ease;
+    cursor: grab; /* 드래그 가능함을 나타냄 */
 
-    /* 반짝반짝 빛나는 애니메이션 */
-    animation: ${sparkle} 2s infinite;
-
-    &:hover {
-        transform: scale(1.1);
+    &:active {
+        cursor: grabbing; /* 드래그 중일 때 커서 변경 */
     }
 `;
-
-//
-// 실제 챗봇 창
-//
 export const ChatWindow = styled.div`
-    background-color: #141414; /* 넷플릭스 스타일의 진한 배경 */
+    background-color: #141414;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     animation: ${slideUp} 0.5s ease-out;
-
-    /* 반응형: 모바일(작은 화면)에서는 화면의 90%, 80% 사용 */
+    position: absolute;
+    top: 0; /* ChatIcon과 수평으로 맞춤 */
     width: 90vw;
     height: 80vh;
 
-    /* 데스크탑(768px 이상)에서는 고정 크기 */
     @media (min-width: 768px) {
         width: 500px;
         height: 650px;
     }
-`;
-
-export const ChatHeader = styled.div`
-    background-color: #000000; /* 상단 헤더는 완전 블랙 */
-    padding: 15px;
-    border-bottom: 1px solid #333;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 `;
 
 export const ChatTitle = styled.h3`

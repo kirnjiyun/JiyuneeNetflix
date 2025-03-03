@@ -20,6 +20,7 @@ export const useSearchMultiQuery = ({ keyword, page }) => {
         queryKey: ["multi-search", keyword, page],
         queryFn: () => fetchSearchMulti({ keyword, page }),
         select: (result) => result.data,
+        enabled: Boolean(keyword),
     });
 
     console.log(query.data);

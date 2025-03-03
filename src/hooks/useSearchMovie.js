@@ -5,11 +5,13 @@ const fetchSearchMovie = async ({ keyword, page }) => {
     try {
         if (keyword) {
             const response = await api.get(
-                `/search/movie?query=${keyword}&page=${page}`
+                `/search/movie?query=${keyword}&page=${page}&adult=false`
             );
             return response;
         } else {
-            const response = await api.get(`/movie/popular?page=${page}`);
+            const response = await api.get(
+                `/movie/popular?page=${page}adult=false`
+            );
             return response;
         }
     } catch (error) {

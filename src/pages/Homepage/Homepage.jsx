@@ -4,7 +4,7 @@ import * as S from "./homepage.styled";
 import { useQueryClient } from "@tanstack/react-query";
 import responsive from "../../constants/responsive";
 import Banner from "./components/Banner/Banner";
-import ChatBot from "../../common/chatBot/ChatBot";
+
 import PopularMovieSlide from "./components/PopularMovieSlide/PopularMovieSlide";
 import TopRatedMovieSlide from "./components/TopRatedMovieSlide/TopRatedMovieSlide";
 import UpcomingMovieSlide from "./components/UpcomingMovieSlide/UpcomingMovieSlide";
@@ -70,7 +70,6 @@ const Homepage = () => {
                     <p>TV 데이터를 불러오지 못했습니다.</p>
                 )}
             </S.HomepageContainer>
-            <ChatBot />
         </>
     );
 };

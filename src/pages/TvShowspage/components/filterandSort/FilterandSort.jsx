@@ -31,10 +31,10 @@ const FilterandSort = ({
     const handleSearchCountryChange = (event) => {
         setSearchCountry(event.target.value);
     };
-
     const filteredCountries = countryData?.filter((country) =>
-        country.english_name.toLowerCase().includes(searchCountry.toLowerCase())
+        country.native_name.toLowerCase().includes(searchCountry.toLowerCase())
     );
+
     return (
         <S.Container>
             <S.CloseButton onClick={onClose}>x</S.CloseButton>
@@ -87,11 +87,11 @@ const FilterandSort = ({
                                 key={country.iso_3166_1}
                                 onClick={() =>
                                     handleOriginCountryChange(
-                                        country.english_name
+                                        country.native_name
                                     )
                                 }
                             >
-                                {country.english_name}
+                                {country.native_name}
                             </S.CountryItem>
                         ))}
                     </S.CountryList>
