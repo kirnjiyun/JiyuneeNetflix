@@ -10,8 +10,9 @@ TMDB API와 OpenAI를 활용해 실시간 데이터를 기반으로 한 맞춤�
 
 | 데스크탑 버전 | 모바일 버전 |
 |:-------------:|:-----------:|
-| ![스크린샷 2024-09-19 오전 12.28.59.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/b30c734c-8ac4-4b7c-9ee0-987cedd9989f/299736d8-79b8-4a1e-89b6-a7390a682685/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-19_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.28.59.png)| ![스크린샷 2024-09-19 오전 12.32.15.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/b30c734c-8ac4-4b7c-9ee0-987cedd9989f/a904f254-8e3a-457c-b659-5baafcf76cbe/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-19_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.32.15.png)|
-| ![스크린샷 2024-09-19 오전 12.19.40.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/b30c734c-8ac4-4b7c-9ee0-987cedd9989f/7c5a46d6-a686-48f5-b82c-08fddc1e84c7/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-19_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.19.40.png) |![스크린샷 2024-09-19 오전 12.32.52.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/b30c734c-8ac4-4b7c-9ee0-987cedd9989f/dfe2507f-ac9d-4d6d-84bb-ab1783337214/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA_2024-09-19_%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB_12.32.52.png) |
+| <img src="https://github.com/user-attachments/assets/dc65373e-0bd2-4236-8c05-a9c9375e99b6" width="100%"> | <img src="https://github.com/user-attachments/assets/8f7e26d6-61ef-4384-95e8-8a5f2628dcf9" width="100%"> |
+| <img src="https://github.com/user-attachments/assets/446b100b-8cfa-4f1d-813c-acb81ab248a6" width="100%"> | <img src="https://github.com/user-attachments/assets/f22faf1b-ba34-4fb5-b86a-726594b96c3c" width="100%"> |
+
 
 ---
 
