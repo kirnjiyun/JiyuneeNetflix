@@ -1,5 +1,5 @@
 # Yunflix 🎬
-![Rectangle 1.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/b30c734c-8ac4-4b7c-9ee0-987cedd9989f/4c2627f6-a45e-4576-bb40-633556d159f1/Rectangle_1.png)
+
 **Yunflix**는 영화 및 TV 시리즈 추천 서비스로, 사용자가 원하는 주제나 감정에 맞춰 작품을 추천받을 수 있는 웹 애플리케이션입니다.  
 TMDB API와 OpenAI를 활용해 실시간 데이터를 기반으로 한 맞춤형 추천을 제공하며, **React와 Node.js로 구축된 풀스택 프로젝트**입니다.
 
